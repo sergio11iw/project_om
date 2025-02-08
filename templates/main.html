@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+    <main>
+        <div class="carousel-3d" data-gap="20", data-bfc>
+            <figure>
+                <div><a href="{% url 'list' 1 %}"><img src='{% static "images/1.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 2 %}"><img src='{% static "images/2.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 3 %}"><img src='{% static "images/3.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 4 %}"><img src='{% static "images/4.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 5 %}"><img src='{% static "images/5.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 6 %}"><img src='{% static "images/6.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 7 %}"><img src='{% static "images/7.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 8 %}"><img src='{% static "images/8.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 9 %}"><img src='{% static "images/9.jpg" %}' alt=""/></a></div>
+                <div><a href="{% url 'list' 10 %}"><img src='{% static "images/10b.jpg" %}' alt=""/></a></div>
+            </figure>
+            <nav>
+                <button class="nav prev"><</button>
+                <button class="nav next">></button>
+            </nav>
+        </div>
+        <div class="home-content">
+            <h1 class="home-title">Мебельная фабрика "ОМЕТА"</h1>
+            Производство мебели для учреждений здравоохранения всех уровней, как бюджетных, так и коммерческих, мебели для современных офисов, учебных организаций, санаторно-курортных и гостиничных учреждений, а также всегда готовы обсудить изготовление мебели по индивидуальным проектам. Основная продукция - мебель общая медицинская, лабораторная, аптечная, столы массажные, кровати медицинские (новинка, запуск в производство в 2011 году), матрацы медицинские, мебель корпусная для кабинетов врачей и прочая сопутствующая продукция.
+        </div>
+        <div class="maps">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1300.6102111290684!2d60.73617764618194!3d56.75400854531444!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43c1698b0d8a1b33%3A0xe377ea8d58851b06!2z0J7QvNC10YLQsCwg0LzQtdCx0LXQu9GM0L3QsNGPINGE0LDQsdGA0LjQutCw!5e0!3m2!1sru!2sru!4v1732853768233!5m2!1sru!2sru" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </main>
+{% endblock %}

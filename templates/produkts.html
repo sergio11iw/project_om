@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+    <div class="line"></div>
+    <div class="grop"><b>Сортировка:</b><a href="?sorter=price"> цена &#11014;</a><a href="?sorter=-price">| цена &#11015;</a><a href="?sorter=name">| название</a>&nbsp &nbsp &nbsp
+    <b>Группы:</b><a href="?grop=Стол">  столы </a><a href="?grop=Шкаф">| шкафы </a><a href="?grop=Тумба">| тумбы </a><a href="?grop=Кушетка">| кушетки </a>
+    </div>
+    <div id="produkt_price">
+        {% for note in notes %}
+        <div class="produkt">
+        <a href="{% url 'list' note.id %}">
+            <h1>{{note.name}}</h1>
+            <h3>Размеры(мм): {{note.sitze}}</h3>
+        </a>
+            <div id="radioButton">
+                <a href="{% url 'list' note.id %}"><h1><img src='{% get_static_prefix %}images/{{note.id}}b.jpg' alt="pr{{note.id}}" class="pr{{note.id}}" style="width: 400px;"></h1></a>
+                <div onclick="myFunction('{{note.id}}a')" class="produkt{{note.id}}a" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}a.gif' class="prod{{note.id}}a" alt="pr1"  style="width: 96px;"><p style="font-size: 8px; word-break: normal;"> Промо</p></div>
+                <div onclick="myFunction('{{note.id}}b')" class="produkt{{note.id}}b" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}b.jpg' class="prod{{note.id}}b" alt="pr1"  style="width: 96px;"><p style="font-size: 8px">{{note.color1}}</p></div>
+                <div onclick="myFunction('{{note.id}}c')" class="produkt{{note.id}}c" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}c.jpg' class="prod{{note.id}}c" alt="pr1"  style="width: 96px;"><p style="font-size: 8px">{{note.color2}}</p></div>
+                <div onclick="myFunction('{{note.id}}d')" class="produkt{{note.id}}d" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}d.jpg' class="prod{{note.id}}d" alt="pr1"  style="width: 96px;"><p style="font-size: 8px">{{note.color3}}</p></div>
+            </div>
+            <p id = "count">
+                <label for="count">Шт: </label>
+                <input type="number" step="1" min="1" max="100" value="1" id="count" name="count"/>
+            </p>
+            <p class="price">Цена: {{note.price}} рублей</p>
+            <button onclick="openPopup()" class="add-to-cart" data-name = "{{note.name}}"  data-price = "{{note.price}}">Добавить в корзину</button>
+        </div>
+        {% endfor %}
+        </div>
+</main>
+<div class="popup">
+    <button onclick="closePopup()">&#10006;</button>
+    <form action="" method="get" class="form-example">
+        <div class="form-example1">
+            <p><label for="name">Фамилия Имя:</label></p>
+          <input type="text" name="name" id="name" required />
+        </div>
+        <div class="form-example1">
+            <p><label for="tel">Телефон: </label></p>
+            <input type="tel" name="tel" id="tel" pattern="+7[0-9]{10}" value="+7" required maxlength="11"/>
+        </div>
+        <div class="form-example1">
+            <p><label for="email">E-Mail: </label></p>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div class="form-example2">
+          <input type="submit" value="Купить в 1 клик" />
+        </div>
+        <div class="shopprod1">
+        </div>
+        <div class="shopprod2">
+        </div>
+        <img class="shopprod3" style="width: 200px;" src="" >
+    </form>
+</div>
+{% endblock %}

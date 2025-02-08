@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МФ ОМЕТА</title>
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href='{% static "css/defaulT.css" %}'/>
+</head>
+<body>
+    <!-- --- ==== HEADER ==== --- -->
+    <header>
+        <div class="col-left">
+            <a href="/" class="site-logo">
+                <div class="scale">
+                    <img src='{% static "images/Ometa.JPG" %}' alt="Logo" class="icon">
+                </div>
+            </a>
+
+        </div>
+        <div class="col-right">
+            <nav class="base">
+                <div class="search_block">
+                    <form>
+                      <input type="search" name="text" class="search" placeholder="Поиск">
+                      <input type="submit" name="submit" class="submit" value="">
+                    </form>
+                </div>
+                <a href="/" class="nav-item">Главная</a>
+                <a href="{% url 'produkts' %}" class="nav-item">Продукция</a>
+                <a href="#" class="nav-item">Личный кабинет</a>
+            </nav>
+
+            <div class="burger-button">
+                <img src='{% static "images/burger.png" %}' alt="burger" class="burger-icon">
+                <nav class="burger-menu">
+                    <div class="search_block">
+                        <form>
+                          <input type="search" name="text" class="search" placeholder="Поиск">
+                          <input type="submit" name="submit" class="submit" value="">
+                        </form>
+                    </div>
+                    <a href="/" class="bn-item">Главная</a>
+                    <a href="{% url 'produkts' %}" class="bn-item">Продукция</a>
+                    <a href="#" class="bn-item">Личный кабинет</a>
+                </nav>
+            </div>
+
+        </div>
+    </header>
+
+{% block content %}
+{% endblock %}
+
+    <footer>
+        <h5>© 2017 Мебельная фабрика Омета</h5>
+    </footer>
+
+
+    <!-- ---==== ASIDE === --- -->
+    <!--<aside><button id="aside"><a href="#any"><img id="asi" src="images/tele.png" alt=""/></a></button></aside>-->
+    <details class="call">
+        <summary>&#9742; Обратная связь</summary>
+        <p>
+            <label>Имя</label>
+            <input type="text" name="first_name">
+        </p>
+        <p>
+            <label>Email</label>
+            <input type="email" name="email">
+        </p>
+        <p>
+            <label>Телефон</label>
+            <input type="tel" name="phone">
+        </p>
+        <p>
+        <button class="next">Отправить</button>
+    </details>
+
+    <script src='{% static "js/indeX.js" %}'></script>
+
+</body>
+</html>
+
