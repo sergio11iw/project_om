@@ -25,7 +25,7 @@
         <div class="col-right">
             <nav class="base">
                 <div class="search_block">
-                    <form>
+                    <form class="forms">
                       <input type="search" name="text" class="search" placeholder="Поиск">
                       <input type="submit" name="submit" class="submit" value="">
                     </form>
@@ -39,7 +39,7 @@
                 <img src='{% static "images/burger.png" %}' alt="burger" class="burger-icon">
                 <nav class="burger-menu">
                     <div class="search_block">
-                        <form>
+                        <form class="forms">
                           <input type="search" name="text" class="search" placeholder="Поиск">
                           <input type="submit" name="submit" class="submit" value="">
                         </form>
@@ -62,10 +62,21 @@
 
     <details class="call">
         <summary>&#9742; Обратная связь</summary>
-        <form method="POST" action="{% url 'main' %}">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-info">Добавить</button>
+        <form method="post" action="{% url 'feedback' %}">
+            {% csrf_token %}
+            <p>
+                <label>Имя</label>
+                <input type="text" name="name" required>
+            </p>
+            <p>
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </p>
+            <p>
+                <label>Телефон</label>
+                <input type="tel" name="tel" required>
+            </p>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
     </details>
 

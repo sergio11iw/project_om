@@ -340,7 +340,7 @@ footer {
     outline: 0;
     outline-offset: 0;
 }
-form{
+.forms {
     position: relative;
     width: 250px;
     margin: 0 auto;
@@ -365,19 +365,19 @@ form{
     no-repeat var(--borders-color);
     border: 0;
 }
-form:hover > .submit{
+.forms:hover > .submit{
     transform: translate(200px, 0);
     transition: 0.8s;
     background-color: var(--borders-color);
     border-color: var(--borders-color);
-    border: solid var(--borders-color) 2px;  
+    border: solid var(--borders-color) 2px;
 }
-form:hover > .search{
+.forms:hover > .search{
     width: 240px;
     border-radius: 20px;
     transform-origin: left;
     transition: 0.8s;
-    border: solid var(--borders-color) 2px; 
+    border: solid var(--borders-color) 2px;
 }
 .search:active {
     border: solid var(--borders-color) 2px;
@@ -573,4 +573,23 @@ summary:hover {
 .form-example1 input{
     background-color: rgb(223, 222, 222);
     width: 250px;
+}
+/* =====сообщение успех===== */
+.messages {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.messages li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
 }

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count
-from .models import Note
+from .models import Note, User
 from .forms import UserModelForm
+from django.contrib import messages
 
 def main(request):
     notes = Note.objects.all()
@@ -22,18 +23,18 @@ def produkt_list(request, list_id):
     if request.method == 'POST':
         list.save()
     return render(request, 'produkt_list.html', {'list': list})
+
 def feedback(request):
-    form = UserModelForm()
-    print(form)
     if request.method == 'POST':
         form = UserModelForm(request.POST)
         if form.is_valid():
             form.save()
+            print("Данные успешно сохранены")
+            messages.success(request, 'Данные получены, мы свяжемся с вами в ближайшее время!')
             return redirect('main')
-
-
-    return render(request, 'main.html', {'form': form})
-
-
-
+        else:
+            print("Форма не валидна:", form.errors)
+    else:
+        form = UserModelForm()
+    return render(request, 'main.html',{'form': form})
 
