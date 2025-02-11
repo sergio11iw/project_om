@@ -122,13 +122,15 @@ function myFunction(el) {
     let vsav = document.querySelector(`.prod${el}`).src
     document.querySelector(`.pr${el.substring(0, el.length - 1)}`).src = vsav
 
-    const attribute = document.querySelector(".add-to-cart")
-    attribute.setAttribute("data-img", vsav);
+    const attributes = document.querySelectorAll(".add-to-cart"); // Получаем все элементы с классом add-to-cart
+    attributes.forEach((element) => {
+        element.setAttribute("data-img", vsav); // Устанавливаем атрибут data-img для каждого элемента
+    });
 
 
 }
 // всплывающее окно
-function openPopup() {
+function openPopup(event) {
     var popup = document.querySelector('.popup');
     popup.style.display = 'block';
     const element = document.querySelector("main")
@@ -136,11 +138,13 @@ function openPopup() {
     const element2= document.querySelector(".grop")
     element2.style.top = '-30px'
 
-    const { target } = event;
+    const target = event.currentTarget;
     document.querySelector('.shopprod1').innerText = target.dataset.name
     document.querySelector('.shopprod2').innerText = target.dataset.price
-    document.querySelector('.shopprod3').src = target.dataset.img
-
+    document.querySelector('.shopprod3').src = target.dataset.img || '';
+    document.querySelector('.shopprod4').innerText = target.dataset.value
+    document.querySelector('.shopprod5').innerText = target.dataset.color
+    console.log(target.dataset.name)
 }
 function closePopup() {
     var popup = document.querySelector('.popup');
@@ -149,6 +153,5 @@ function closePopup() {
     element.style.filter = 'none'
     const element2= document.querySelector(".grop")
     element2.style.top = '80px'
-
 }
 
