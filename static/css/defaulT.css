@@ -20,7 +20,12 @@
 }
 body {
     background-color: var(--bg-color);
+
 }
+.home-content {
+    padding-left: 10%;
+    padding-right: 10%;
+    }
 /*  ---==== HEADER ====--- */
 header {
     padding: 0 6px;
@@ -99,7 +104,12 @@ nav.base .nav-item {
     color: black;
 }
 footer {
-    text-align: center; 
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    text-align: center;
 }
 /*Кнопка купить*/
 #sale {
@@ -592,4 +602,38 @@ summary:hover {
     background-color: #d4edda;
     color: #155724;
     border-color: #c3e6cb;
+}
+
+.home_user {
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 20px;
+}
+
+.home_user {
+    transition: 0.1s; /* Время эффекта */
+
+   }
+.home_user:hover {
+    transform: scale(1.02); /* Увеличиваем масштаб */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1), 0 0 0.2em;
+    color: black;
+}
+.login_page {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btnlog {
+    background: green;
+    float: left;
+}
+
+.form-label_requiredField {
+    border-button: 1px solid #ccc;
 }
