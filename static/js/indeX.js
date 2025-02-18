@@ -116,15 +116,15 @@ function carousel(root) {
 
 
 /*Продукция*/
-
 // переключение картинок
-function myFunction(el) {
+function myFunction(el, color) {
     let vsav = document.querySelector(`.prod${el}`).src
     document.querySelector(`.pr${el.substring(0, el.length - 1)}`).src = vsav
 
     const attributes = document.querySelectorAll(".add-to-cart"); // Получаем все элементы с классом add-to-cart
     attributes.forEach((element) => {
         element.setAttribute("data-img", vsav); // Устанавливаем атрибут data-img для каждого элемента
+        element.setAttribute("data-color", color);
     });
 
 
@@ -144,7 +144,7 @@ function openPopup(event) {
     document.querySelector('.shopprod3').src = target.dataset.img || '';
     document.querySelector('.shopprod4').innerText = target.dataset.value
     document.querySelector('.shopprod5').innerText = target.dataset.color
-    console.log(target.dataset.name)
+    console.log(target.dataset.color)
 }
 function closePopup() {
     var popup = document.querySelector('.popup');
@@ -154,4 +154,6 @@ function closePopup() {
     const element2= document.querySelector(".grop")
     element2.style.top = '80px'
 }
+
+
 

@@ -110,6 +110,7 @@ footer {
     height:30px;
     width:100%;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 /*Кнопка купить*/
 #sale {
@@ -121,7 +122,7 @@ footer {
     font-size: 20px;
 }
 #sale:hover {
-       box-shadow: 1px 1px 4px black, 0 0 1em;
+    box-shadow: 1px 1px 4px black, 0 0 1em;
 }
 /*zoom*/
 .scale8 {
@@ -311,8 +312,9 @@ footer {
 }
 .container {
     display:flex;
-    margin: 10px;
-    padding: 10px;     
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
 }
 #prod:hover  {
     transform: scale(1.02); /* Увеличиваем масштаб */
