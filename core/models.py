@@ -22,3 +22,5 @@ class User(models.Model):
         verbose_name_plural = 'Обратная связь'
     def __str__(self):
         return self.name
+
+

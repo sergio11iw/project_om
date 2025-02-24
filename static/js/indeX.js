@@ -1,3 +1,29 @@
+
+const toggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+
+    toggleButton.addEventListener('click', () => {
+        // Переключаем классы
+        body.classList.toggle('dark-theme');
+        body.classList.toggle('light-theme');
+
+        // Сохраняем выбранную тему в localStorage
+        if (body.classList.contains('dark-theme')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Проверяем сохраненную тему при загрузке страницы
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        body.classList.add(savedTheme);
+    }
+
+
+
+
 window.addEventListener("load", () => {
     var carousels = document.querySelectorAll(".carousel-3d");
     for (var i = 0; i < carousels.length; i++) {
@@ -116,15 +142,15 @@ function carousel(root) {
 
 
 /*Продукция*/
-
 // переключение картинок
-function myFunction(el) {
+function myFunction(el, color) {
     let vsav = document.querySelector(`.prod${el}`).src
     document.querySelector(`.pr${el.substring(0, el.length - 1)}`).src = vsav
 
     const attributes = document.querySelectorAll(".add-to-cart"); // Получаем все элементы с классом add-to-cart
     attributes.forEach((element) => {
         element.setAttribute("data-img", vsav); // Устанавливаем атрибут data-img для каждого элемента
+        element.setAttribute("data-color", color);
     });
 
 
@@ -137,14 +163,22 @@ function openPopup(event) {
     element.style.filter = 'blur(5px)'
     const element2= document.querySelector(".grop")
     element2.style.top = '-30px'
+    const target = event.currentTarget; // Получаем элемент, на который нажали
+    const productElement = target.closest('.produkt'); // Находим родительский элемент с классом 'produkt'
+    const countInput = productElement.querySelector('input[name="count"]'); // Находим поле ввода количества
+    const countValue = countInput.value; // Получаем значение количества
 
-    const target = event.currentTarget;
+    const priceValue = parseFloat(target.dataset.price); // Получаем цену из атрибута data-price
+    // Вычисляем общую стоимость
+    const totalPrice = countValue * priceValue;
+    console.log(totalPrice)
+
     document.querySelector('.shopprod1').innerText = target.dataset.name
-    document.querySelector('.shopprod2').innerText = target.dataset.price
+    document.querySelector('.shopprod2').innerText = `Итого: ${totalPrice} руб`
     document.querySelector('.shopprod3').src = target.dataset.img || '';
-    document.querySelector('.shopprod4').innerText = target.dataset.value
+    document.querySelector('.shopprod4').innerText = `Количество: ${countValue}`; // Устанавливаем количество
     document.querySelector('.shopprod5').innerText = target.dataset.color
-    console.log(target.dataset.name)
+    console.log(target.dataset.color)
 }
 function closePopup() {
     var popup = document.querySelector('.popup');
@@ -154,4 +188,6 @@ function closePopup() {
     const element2= document.querySelector(".grop")
     element2.style.top = '80px'
 }
+
+
 

@@ -12,9 +12,9 @@
     <link rel="stylesheet" href='{% static "css/defaulT.css" %}'/>
 
 </head>
-<body>
+<body class="light-theme">
     <!-- --- ==== HEADER ==== --- -->
-    <header>
+    <header class="light-theme">
         <div class="col-left">
             <a href="/" class="site-logo">
                 <div class="scale">
@@ -34,6 +34,7 @@
                 <a href="/" class="nav-item">Главная</a>
                 <a href="{% url 'produkts' %}" class="nav-item">Продукция</a>
                 <a href="{% url 'profiles_home' %}" class="nav-item">Личный кабинет</a>
+                <button id="theme-toggle">Переключить тему</button>
             </nav>
 
             <div class="burger-button">
@@ -47,7 +48,7 @@
                     </div>
                     <a href="/" class="bn-item">Главная</a>
                     <a href="{% url 'produkts' %}" class="bn-item">Продукция</a>
-                    <a href="#" class="bn-item">Личный кабинет</a>
+                    <a href="{% url 'profiles_home' %}" class="bn-item">Личный кабинет</a>
                 </nav>
             </div>
 
