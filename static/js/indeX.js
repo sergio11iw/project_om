@@ -1,29 +1,4 @@
 
-const toggleButton = document.getElementById('theme-toggle');
-const body = document.body;
-
-    toggleButton.addEventListener('click', () => {
-        // Переключаем классы
-        body.classList.toggle('dark-theme');
-        body.classList.toggle('light-theme');
-
-        // Сохраняем выбранную тему в localStorage
-        if (body.classList.contains('dark-theme')) {
-            localStorage.setItem('theme', 'dark');
-        } else {
-            localStorage.setItem('theme', 'light');
-        }
-    });
-
-    // Проверяем сохраненную тему при загрузке страницы
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-    }
-
-
-
-
 window.addEventListener("load", () => {
     var carousels = document.querySelectorAll(".carousel-3d");
     for (var i = 0; i < carousels.length; i++) {

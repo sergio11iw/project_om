@@ -1,27 +1,11 @@
 /* ---====VARIABLES====--- -*/
-/*:root {
+:root {
     --bg-color: rgb(255, 255, 255);
     --font-color: #0f0f0f;
     --borders-color: red;
     --font-color2: gray;
-}*/
+}
 /* ---====GLOBAL=SETTINGS====--- */
-/* Светлая тема */
-.light-theme {
-    --bg-color: rgb(255, 255, 255);
-    --font-color: #0f0f0f;
-    --borders-color: red;
-    --font-color2: gray;
-}
-
-/* Темная тема */
-.dark-theme {
-    --bg-color: #212830;
-    --font-color: #ffffff;
-    --borders-color: #212830;
-    --font-color2: #cccccc;
-}
-
 
 * {
     margin: 0;
