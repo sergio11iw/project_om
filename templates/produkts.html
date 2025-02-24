@@ -33,7 +33,8 @@
 </main>
 <div class="popup">
     <button onclick="closePopup()">&#10006;</button>
-    <form action="" method="post" class="form-example">
+    <form action="{% url 'create_order' %}" method="post" class="form-example">
+        {% csrf_token %}
         <div class="form-example1">
             <p><label for="name">Фамилия Имя:</label></p>
           <input type="text" name="name" id="name" required />
@@ -46,20 +47,20 @@
             <p><label for="email">E-Mail: </label></p>
           <input type="email" name="email" id="email" required />
         </div>
-        <div class="form-example2">
-          <input type="submit" value="Купить в 1 клик" />
-        </div>
         <div class="shopprod1">
         </div>
-        <div class="shopprod2">
+        <div class="shopprod5">
         </div>
         <div class="shopprod4">
             Количество: <span id="product-count"></span>
         </div>
-        <img class="shopprod3" style="width: 150px;" src="" >
-        <div class="shopprod5">
+        <div class="shopprod2">
         </div>
-
+        <img class="shopprod3" style="width: 150px;" src="" >
+        <div class="form-example2">
+          <input type="submit" value="Купить в 1 клик" />
+        </div>
+        <input type="hidden" name="other" value="" class="shopprod6" />
     </form>
 </div>
 {% endblock %}

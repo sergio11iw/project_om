@@ -178,7 +178,9 @@ function openPopup(event) {
     document.querySelector('.shopprod3').src = target.dataset.img || '';
     document.querySelector('.shopprod4').innerText = `Количество: ${countValue}`; // Устанавливаем количество
     document.querySelector('.shopprod5').innerText = target.dataset.color
+    document.querySelector('.shopprod6').value = `${target.dataset.name} + ${totalPrice} + ${countValue} + ${target.dataset.color} + ${target.dataset.img || ''}`
     console.log(target.dataset.color)
+
 }
 function closePopup() {
     var popup = document.querySelector('.popup');

@@ -23,4 +23,13 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
-
+class ShopUser(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Имя')
+    email = models.EmailField(verbose_name='Почта', blank=True, null=True)
+    tel = models.PositiveIntegerField(verbose_name='Телефон')
+    other = models.CharField(max_length=200, verbose_name='Заказ')
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+    def __str__(self):
+        return self.name

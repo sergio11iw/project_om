@@ -6,7 +6,7 @@ urlpatterns = [
     path('produkts', produkts, name='produkts'),
     path('produkt_list/<int:list_id>', produkt_list, name='list'),
     path('feedback/', feedback, name='feedback'),
-
+    path('create-order/', create_order, name='create_order'),
 
 
 ]
