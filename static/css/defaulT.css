@@ -610,21 +610,13 @@ summary:hover {
 }
 
 .home_user {
-    text-align: center;
-    margin-left: 30%;
-    margin-right: 30%;
+    text-align: left;
+    margin-left: 10%;
+
     padding: 20px;
 }
 
-.home_user {
-    transition: 0.1s; /* Время эффекта */
 
-   }
-.home_user:hover {
-    transform: scale(1.02); /* Увеличиваем масштаб */
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1), 0 0 0.2em;
-    color: black;
-}
 .login_page {
     text-align: center;
     border: 1px solid #ccc;
@@ -642,3 +634,4 @@ summary:hover {
 .form-label_requiredField {
     border-button: 1px solid #ccc;
 }
+

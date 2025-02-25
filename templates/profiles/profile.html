@@ -5,36 +5,38 @@
 
 <div class="home_user">
 
-<h2>Личный кабинет</h2>
-    <p><strong>Имя:</strong> {{ request.user.username }}</p>
-
+<h2>Профиль</h2><a href="{% url 'profiles_logout' %}">Выйти</a>
     {% if profile %}
-        <p><strong>Email:</strong> {{ profile.email }}</p>
-        <p><strong>Телефон:</strong> {{ profile.tel }}</p>
-        <p><strong>Дата рождения:</strong> {{ profile.birthday }}</p>
-        <p><strong>Изображение:</strong></p>
-        <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-            <h2>Редактировать профиль</h2>
-
-            <h3>Данные пользователя</h3>
-            {{ user_form.as_p }}
-
-            <h3>Данные профиля</h3>
-            {{ profile_form.as_p }}
-
-            <button type="submit">Сохранить изменения</button>
-        </form>
-        {% if profile.image %}
+    {% if profile.image %}
             <img src="{{ profile.image.url }}" alt="Profile Image" style="max-width: 200px;">
         {% else %}
             <p>Изображение не загружено.</p>
         {% endif %}
+    {% endif %}
+    <p><strong>Имя:</strong> {{ request.user.username }}</p>
+
+    {% if profile %}
+
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Телефон:</strong> {{ profile.tel }}</p>
+        <p><strong>Дата рождения:</strong> {{ profile.birthday }}</p>
+        <details class="">
+            <summary>Редактировать профиль</summary>
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <h3>Данные пользователя</h3>
+                {{ user_form.as_p }}
+                <h3>Данные профиля</h3>
+                {{ profile_form.as_p }}
+
+                <button type="submit">Сохранить изменения</button>
+            </form>
+        </details>
     {% else %}
         <p>Профиль не найден. Пожалуйста, заполните информацию о профиле.</p>
     {% endif %}
 
-    <a href="{% url 'profiles_logout' %}">Выйти</a>
+
 
 </div>
 

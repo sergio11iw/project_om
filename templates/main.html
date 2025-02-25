@@ -21,13 +21,7 @@
                 <button class="nav next">></button>
             </nav>
         </div>
-            {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+
         <div class="home-content">
             <h1 class="home-title">Мебельная фабрика "ОМЕТА"</h1>
             Мебельная фабрика "ОМЕТА" (г. Екатеринбург) работает на российском рынке медицинской мебели с 2004г.
