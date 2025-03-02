@@ -26,11 +26,12 @@
         <div class="col-right">
             <nav class="base">
                 <div class="search_block">
-                    <form class="forms">
-                      <input type="search" name="text" class="search" placeholder="Поиск">
-                      <input type="submit" name="submit" class="submit" value="">
-                    </form>
-                </div>
+    <form class="forms" action="{% url 'produkt_search' %}" method="GET">
+        <input type="search" name="text" class="search" value="{{ text }}" placeholder="Поиск">
+        <input type="submit" name="submit" class="submit" value="">
+    </form>
+
+</div>
                 <a href="/" class="nav-item">Главная</a>
                 <a href="{% url 'produkts' %}" class="nav-item">Продукция</a>
                 <a href="{% url 'profiles_profile' %}" class="nav-item">Личный кабинет</a>
@@ -84,7 +85,7 @@
                 <label>Телефон</label>
                 <input type="tel" name="tel" required>
             </p>
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">Отправить</button>
         </form>
     </details>
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.db.models import Count
+from django.core.paginator import Paginator
+from django.db.models import Count, Q
 from .models import Note, User, ShopUser
 from .forms import UserModelForm
 from django.contrib import messages
@@ -10,13 +11,27 @@ def main(request):
 
 def produkts(request):
     notes = Note.objects.all()
+    page_number = request.GET.get('page', 1)
     grop = request.GET.get('grop')
     sorter = request.GET.get('sorter')
     if grop:
         notes = notes.filter(name__istartswith=grop).values()
     if sorter:
         notes = notes.order_by(sorter).values()
-    return render(request, 'produkts.html', {'notes': notes})
+    paginator = Paginator(notes, 6)
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'produkts.html', {'notes': notes, 'page_obj': page_obj})
+
+def produkt_search(request):
+    text = request.GET.get('text', '')
+    produkts = Note.objects.filter(Q(name__icontains=text) | Q(descr__icontains=text))
+
+    # Пагинация
+    paginator = Paginator(produkts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'produkt_search.html', {'page_obj': page_obj, 'text': text})
 
 def produkt_list(request, list_id):
     list = Note.objects.get(id=list_id)

@@ -350,6 +350,7 @@ footer {
     font-size: 20px;
     
 }
+
 /* поиск*/
 :active, :hover, :focus {
     outline: 0;
@@ -634,4 +635,26 @@ summary:hover {
 .form-label_requiredField {
     border-button: 1px solid #ccc;
 }
+/* =====пагинация===== */
+.pagination {
+    justify-content: center;
+    margin-left: 200px;
+    margin-bottom: 100px;
+
+}
+.page-item{
+    display:inline-block;
+    margin: 5px;
+    padding 5px;
+}
+.page-item.active .page-link {
+    color: red;
+    font-size: 1.5em
+
+}
+.page-item:hover {
+    transform: scale(1.5); /* Увеличиваем масштаб */
+    /* box-shadow: 1px 1px 4px rgb(46, 46, 46), 0 0 1em; */
+    /*box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1), 0 0 0.2em;*/
+
 
