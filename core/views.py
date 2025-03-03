@@ -20,10 +20,10 @@ def produkts(request):
         notes = notes.order_by(sorter).values()
     paginator = Paginator(notes, 6)
     page_obj = paginator.get_page(page_number)
-    return render(request, 'produkts.html', {'notes': notes, 'page_obj': page_obj})
+    return render(request, 'produkts.html', {'notes': notes, 'page_obj': page_obj, 'grop': grop, 'sorter': sorter})
 
 def produkt_search(request):
-    text = request.GET.get('text', '')
+    text = request.GET.get('text', '').strip()
     produkts = Note.objects.filter(Q(name__icontains=text) | Q(descr__icontains=text))
 
     # Пагинация
