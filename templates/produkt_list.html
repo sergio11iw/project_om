@@ -6,24 +6,57 @@
         <div class="produkt_list">
                     <div id="radioButton">
                         <h1><img src='{% get_static_prefix %}images/{{list.id}}b.jpg' alt="pr{{list.id}}" class="pr{{list.id}}" style="width: 600px;"></h1>
-                        <div onclick="myFunction('{{list.id}}a')" class="produkt{{list.id}}a" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}a.gif' class="prod{{list.id}}a" alt="{{list.id}}a"  style="width: 145px;"><p>Промо</p></div>
-                        <div onclick="myFunction('{{list.id}}b')" class="produkt{{list.id}}b" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}b.jpg' class="prod{{list.id}}b" alt="{{list.id}}b"  style="width: 145px;"><p>{{list.color1}}</p></div>
-                        <div onclick="myFunction('{{list.id}}c')" class="produkt{{list.id}}c" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}c.jpg' class="prod{{list.id}}c" alt="{{list.id}}c"  style="width: 145px;"><p>{{list.color2}}</p></div>
-                        <div onclick="myFunction('{{list.id}}d')" class="produkt{{list.id}}d" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}d.jpg' class="prod{{list.id}}d" alt="{{list.id}}d"  style="width: 145px;"><p>{{list.color3}}</p></div>
+                        <div onclick="myFunction('{{list.id}}a', '{{list.color1}}')" class="produkt{{list.id}}a" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}a.gif' class="prod{{list.id}}a" alt="{{list.id}}a"  style="width: 145px;"><p>Промо</p></div>
+                        <div onclick="myFunction('{{list.id}}b', '{{list.color1}}')" class="produkt{{list.id}}b" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}b.jpg' class="prod{{list.id}}b" alt="{{list.id}}b"  style="width: 145px;"><p>{{list.color1}}</p></div>
+                        <div onclick="myFunction('{{list.id}}c', '{{list.color2}}')" class="produkt{{list.id}}c" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}c.jpg' class="prod{{list.id}}c" alt="{{list.id}}c"  style="width: 145px;"><p>{{list.color2}}</p></div>
+                        <div onclick="myFunction('{{list.id}}d', '{{list.color3}}')" class="produkt{{list.id}}d" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{list.id}}d.jpg' class="prod{{list.id}}d" alt="{{list.id}}d"  style="width: 145px;"><p>{{list.color3}}</p></div>
                     </div>
-                </div>
+
                 <div class="produkt_list_info">
                     <h1>{{list.name}}</h1>
                     <h1>Размеры(мм): {{list.sitze}}</h1>
                     <h2>Описание: </h2>
                     <h3>{{list.descr}}</h3>
-                    <p id = "count">
-                        <label for="count">Шт: </label>
-                        <input type="number" step="1" min="1" max="100" value="1" id="count" name="count"/>
+                    <p class="count" data-note-id="{{ list.id }}">
+                        <label for="count-{{ list.id }}">Шт: </label>
+                        <input type="number" step="1" min="1" max="100" value="1" id="count-{{ list.id }}" name="count"/>
                     </p>
-                    <button id="sale">Купить {{list.price}} руб</button><br>
-
+                    <p class="price">Цена: {{list.price}} рублей</p>
+                    <button onclick="openPopup(event)" class="add-to-cart" data-name = "{{list.name}}"  data-color ="{{list.color1}}" data-price = "{{list.price}}" data-img="{% get_static_prefix %}images/{{ list.id }}b.jpg" data-value="">Купить в 1 клик</button>
                 </div>
+        </div>
     </div>
 </main>
+<div class="popup">
+    <button onclick="closePopup()">&#10006;</button>
+    <form action="{% url 'create_order' %}" method="post" class="form-example">
+        {% csrf_token %}
+        <div class="form-example1">
+            <p><label for="name">Фамилия Имя:</label></p>
+          <input type="text" name="name" id="name" required />
+        </div>
+        <div class="form-example1">
+            <p><label for="tel">Телефон: </label></p>
+            <input type="tel" name="tel" id="tel" pattern="\+7[0-9]{10}" value="+7" required maxlength="12" placeholder="+7XXXXXXXXXX"/>
+        </div>
+        <div class="form-example1">
+            <p><label for="email">E-Mail: </label></p>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div class="shopprod1">
+        </div>
+        <div class="shopprod5">
+        </div>
+        <div class="shopprod4">
+            Количество: <span id="product-count"></span>
+        </div>
+        <div class="shopprod2">
+        </div>
+        <img class="shopprod3" style="width: 150px;" src="" >
+        <div class="form-example2">
+          <input type="submit" value="Купить в 1 клик" />
+        </div>
+        <input type="hidden" name="other" value="" class="shopprod6" />
+    </form>
+</div>
 {% endblock %}

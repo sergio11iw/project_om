@@ -137,9 +137,14 @@ function openPopup(event) {
     const element = document.querySelector("main")
     element.style.filter = 'blur(5px)'
     const element2= document.querySelector(".grop")
-    element2.style.top = '-30px'
+    if (element2) {
+        element2.style.top = '-30px'}
     const target = event.currentTarget; // Получаем элемент, на который нажали
-    const productElement = target.closest('.produkt'); // Находим родительский элемент с классом 'produkt'
+    const productElement = target.closest('.produkt') || target.closest('.produkt_list'); // Находим  элемент с классом 'produkt' или '.produkt_list'
+    if (!productElement) {
+        console.error("Не удалось найти элемент с классами 'produkt' или 'produkt_list'");
+        return; // Выходим из функции, если элемент не найден
+    }
     const countInput = productElement.querySelector('input[name="count"]'); // Находим поле ввода количества
     const countValue = countInput.value; // Получаем значение количества
 
@@ -147,6 +152,8 @@ function openPopup(event) {
     // Вычисляем общую стоимость
     const totalPrice = countValue * priceValue;
     console.log(totalPrice)
+    console.log(target.dataset.name)
+
 
     document.querySelector('.shopprod1').innerText = target.dataset.name
     document.querySelector('.shopprod2').innerText = `Итого: ${totalPrice} руб`
@@ -162,8 +169,9 @@ function closePopup() {
     popup.style.display = 'none';
     const element = document.querySelector("main")
     element.style.filter = 'none'
-    const element2= document.querySelector(".grop")
-    element2.style.top = '80px'
+    const element2 = document.querySelector(".grop");
+    if (element2) {
+        element2.style.top = '80px';}
 }
 
 
