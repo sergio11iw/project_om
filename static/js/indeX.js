@@ -174,5 +174,31 @@ function closePopup() {
         element2.style.top = '80px';}
 }
 
+$(".popup").on('submit', '.form-example', function(event){
+
+  event.preventDefault()
+  let form = $(".form-example")
+  let url = form.attr('action')
+
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: form.serialize(),
+    success: function(response) {
+            console.log(response);
+               if (response.success) {
+
+                    alert('Ваш заказ принят, мы свяжемся с вами в ближайшее время!');
+                    closePopup();
+                } else {
+                    alert('Произошла ошибка: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Ошибка при отправке данных: ' + error);
+            }
+  })
+});
+
 
 

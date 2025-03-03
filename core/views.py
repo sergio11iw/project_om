@@ -4,6 +4,7 @@ from django.db.models import Count, Q
 from .models import Note, User, ShopUser
 from .forms import UserModelForm
 from django.contrib import messages
+from django.http import Http404, JsonResponse
 
 def main(request):
     notes = Note.objects.all()
@@ -52,17 +53,27 @@ def feedback(request):
     else:
         form = UserModelForm()
     return render(request, 'main.html',{'form': form})
+# def create_order(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         tel = request.POST.get('tel')
+#         email = request.POST.get('email')
+#         other = request.POST.get('other')
+#
+#         order = ShopUser(name=name, tel=tel, email=email, other=other)
+#         order.save()  # Сохраняем заказ в базе данных
+#
+#         messages.success(request, 'Ваш заказ принят, мы свяжемся с вами в ближайшее время!')
+#         return redirect('main')
+#
+#     return render(request, 'main')
 def create_order(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         tel = request.POST.get('tel')
         email = request.POST.get('email')
         other = request.POST.get('other')
-
         order = ShopUser(name=name, tel=tel, email=email, other=other)
-        order.save()  # Сохраняем заказ в базе данных
-
-        messages.success(request, 'Ваш заказ принят, мы свяжемся с вами в ближайшее время!')
-        return redirect('main')
-
-    return render(request, 'main')
+        order.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
