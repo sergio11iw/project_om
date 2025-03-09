@@ -15,7 +15,7 @@
             <h3>Размеры(мм): {{note.sitze}}</h3>
         </a>
             <div id="radioButton">
-                <a href="{% url 'list' note.id %}"><h1><img src='{% get_static_prefix %}images/{{note.id}}b.jpg' alt="pr{{note.id}}" class="pr{{note.id}}" style="width: 400px;"></h1></a>
+                <a href="{% url 'list' note.id %}"><h1><img src='{% get_static_prefix %}images/{{note.id}}b.jpg' alt="pr{{note.id}}" class="pr{{note.id}}" style="width: 300px;"></h1></a>
                 <div onclick="myFunction('{{note.id}}a', '{{note.color1}}')" class="produkt{{note.id}}a" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}a.gif' class="prod{{note.id}}a" alt="pr1"  style="width: 96px;"><p style="font-size: 8px; word-break: normal;"> Промо</p></div>
                 <div onclick="myFunction('{{note.id}}b', '{{note.color1}}')" class="produkt{{note.id}}b" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}b.jpg' class="prod{{note.id}}b" alt="pr1"  style="width: 96px;"><p style="font-size: 8px">{{note.color1}}</p></div>
                 <div onclick="myFunction('{{note.id}}c', '{{note.color2}}')" class="produkt{{note.id}}c" id="prod" tabindex="0" style="display: inline-block;"><img src='{% get_static_prefix %}images/{{note.id}}c.jpg' class="prod{{note.id}}c" alt="pr1"  style="width: 96px;"><p style="font-size: 8px">{{note.color2}}</p></div>
