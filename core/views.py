@@ -75,5 +75,6 @@ def create_order(request):
         other = request.POST.get('other')
         order = ShopUser(name=name, tel=tel, email=email, other=other)
         order.save()
+
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})

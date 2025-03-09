@@ -172,6 +172,18 @@ footer {
 .scale:active:after {
     opacity: 0;
 }
+.home-title {
+   margin-bottom: 20px;
+   border-bottom: 2px solid var(--borders-color);
+   font-size: 30px;
+
+}
+.home-content {
+    margin: 50px;
+    text-align: justify;
+    font-size: 25px;
+
+ }
 /* BURGER NAV (Adaptiv menu) */
 
 .burger-button {
@@ -206,6 +218,17 @@ footer {
 @media screen and (max-width: 520px) {
     nav.base { display: none;}
     .burger-button { display: block;}
+    .home-content {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 5px;
+    font-size: 15px;
+    }
+    .home-title {
+    text-align: center;
+    }
+
+
     
 }
 .maps {
@@ -351,6 +374,17 @@ footer {
     
 }
 
+/* popup */
+.bold-button {
+    font-weight: bolder;
+}
+.bold-button {
+    transition: 0.5s; /* Время эффекта */
+
+   }
+.bold-button:hover {
+    transform: scale(1.2);
+}
 /* поиск*/
 :active, :hover, :focus {
     outline: 0;
@@ -399,18 +433,7 @@ footer {
     border: solid var(--borders-color) 2px;
 }
 /* =====Описание===== */
-.home-title {
-   margin-bottom: 20px;
-   border-bottom: 2px solid var(--borders-color);
-   font-size: 30px;
 
-}
-.home-content {
-    margin: 50px;
-    text-align: justify;
-    font-size: 25px;
-    
- }
 /* =====ASIDE===== */
 aside {
 	border: 4px solid var(--borders-color);

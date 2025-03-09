@@ -7,7 +7,7 @@
     <div class="grop"><b>Сортировка:</b><a href="?sorter=price"> цена &#11014;</a><a href="?sorter=-price">| цена &#11015;</a><a href="?sorter=name">| название</a>&nbsp &nbsp &nbsp
     <b>Группы:</b><a href="?grop=Стол">  столы </a><a href="?grop=Шкаф">| шкафы </a><a href="?grop=Тумба">| тумбы </a><a href="?grop=Кушетка">| кушетки </a>
     </div>
-    <div id="produkt_price" style="margin-left: 10%; margin-right: 10%;">
+    <div id="produkt_price" style="margin-left: auto; margin-right: auto;">
         {% for note in page_obj %}
         <div class="produkt">
         <a href="{% url 'list' note.id %}">
@@ -99,7 +99,7 @@
         </div>
         <img class="shopprod3" style="width: 150px;" src="" >
         <div class="form-example2">
-          <input type="submit" value="Купить в 1 клик" />
+          <input type="submit" value="Купить в 1 клик" class="bold-button" />
         </div>
         <input type="hidden" name="other" value="" class="shopprod6" />
     </form>
