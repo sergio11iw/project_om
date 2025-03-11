@@ -293,6 +293,7 @@ body {
 }
 .burger.active span:nth-child(1) {
     transform: rotate(45deg) translate(10px, 5px);
+    background-color: red;
 }
 
 .burger.active span:nth-child(2) {
@@ -301,6 +302,7 @@ body {
 
 .burger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(10px, -5px);
+    background-color: red;
 
 
 /*.burger-button {
@@ -705,7 +707,7 @@ summary:hover {
 .popup {
     position: fixed;
     top: 50%;
-    left: 50%;
+    left: 30%;
     transform: translate(-50%, -50%);
     width: 300px;
     height: 450px;
@@ -784,9 +786,14 @@ summary:hover {
     border-button: 1px solid #ccc;
 }
 /* =====пагинация===== */
+.pagination-container {
+    display: flex; /* Делаем родительский элемент Flex-контейнером */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    margin-bottom: 100px; /* Отступ снизу */
+}
+
 .pagination {
-    justify-content: center;
-    margin-left: 200px;
+
     margin-bottom: 100px;
 
 }
