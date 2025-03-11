@@ -199,6 +199,19 @@ $(".popup").on('submit', '.form-example', function(event){
             }
   })
 });
+// бургер меню
+// Получаем элементы бургер-меню и навигации
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+
+// Добавляем обработчик события на клик по бургер-меню
+burger.addEventListener('click', () => {
+    // Переключаем класс "active" у навигации
+    nav.classList.toggle('active');
+
+    // Анимация бургер-меню
+    burger.classList.toggle('active');
+});
 
 
 

@@ -14,44 +14,33 @@
 </head>
 <body>
     <!-- --- ==== HEADER ==== --- -->
-    <header>
-        <div class="col-left">
-            <a href="/" class="site-logo">
-                <div class="scale">
-                    <img src='{% static "images/Ometa.JPG" %}' alt="Logo" class="icon">
-                </div>
-            </a>
-
-        </div>
-        <div class="col-right">
-            <nav class="base">
-                <div class="search_block">
-    <form class="forms" action="{% url 'produkt_search' %}" method="GET">
-        <input type="search" name="text" class="search" value="{{ text }}" placeholder="Поиск">
-        <input type="submit" name="submit" class="submit" value="">
-    </form>
-
-</div>
-                <a href="/" class="nav-item">Главная</a>
-                <a href="{% url 'produkts' %}" class="nav-item">Продукция</a>
-                <a href="{% url 'profiles_profile' %}" class="nav-item">Личный кабинет</a>
-
-            </nav>
-
-            <div class="burger-button">
-                <img src='{% static "images/burger.png" %}' alt="burger" class="burger-icon">
-                <nav class="burger-menu">
-                    <div class="search_block">
-                        <form class="forms">
-                          <input type="search" name="text" class="search" placeholder="Поиск">
-                          <input type="submit" name="submit" class="submit" value="">
-                        </form>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="/" class="site-logo">
+                    <div class="scale">
+                        <img src='{% static "images/Ometa.JPG" %}' alt="Logo" class="icon">
                     </div>
-                    <a href="/" class="bn-item">Главная</a>
-                    <a href="{% url 'produkts' %}" class="bn-item">Продукция</a>
-                    <a href="{% url 'profiles_profile' %}" class="bn-item">Личный кабинет</a>
-                </nav>
+                </a>
+                <div class="burger" id="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                </div>
             </div>
+
+                    <nav class="nav"  id="nav">
+                        <div class="search_block">
+                            <form class="forms" action="{% url 'produkt_search' %}" method="GET">
+                            <input type="search" name="text" class="search" value="{{ text }}" placeholder="Поиск">
+                            <input type="submit" name="submit" class="submit" value="">
+                        </form>
+                        </div>
+                        <a href="/" class="bn-item">Главная</a>
+                        <a href="{% url 'produkts' %}" class="bn-item">Продукция</a>
+                        <a href="{% url 'profiles_profile' %}" class="bn-item">Личный кабинет</a>
+                    </nav>
+
         </div>
     </header>
         {% if messages %}
