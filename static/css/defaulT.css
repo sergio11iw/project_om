@@ -225,14 +225,18 @@ body {
 }
 .bn-item {
     color: gray;
+
 }
 
 .bn-item:hover {
-    color: red;
+    color: #6f4141;
+    font-size: 1.1em;
+
 }
 .bn-item.active {
     color: black; /* Цвет для активной ссылки */
     font-weight: bold;
+
 }
 
 .nav__link {
