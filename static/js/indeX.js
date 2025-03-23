@@ -173,6 +173,22 @@ function closePopup() {
     if (element2) {
         element2.style.top = '110px';}
 }
+function info(event) {
+    // Получаем элемент, на который нажали
+    const button = event.currentTarget;
+    // Получаем значение data-color
+    const color = button.getAttribute('data-color');
+    const name = button.getAttribute('data-name');
+    const price = button.getAttribute('data-price');
+    const noteId = button.getAttribute('data-id'); // Убедитесь, что вы добавили data-id в кнопку
+
+    // Получаем количество из поля ввода
+    const quantityInput = document.getElementById(`count-${noteId}`);
+    const quantity = quantityInput ? quantityInput.value : 1; // Устанавливаем значение по умолчанию, если поле не найдено
+
+    // Выводим информацию в alert
+    alert(`Товар: ${name}\nЦвет: ${color}\nКоличество: ${quantity}\nЦена: ${price} рублей`);
+}
 
 //$(".popup").on('submit', '.form-example', function(event){
 //

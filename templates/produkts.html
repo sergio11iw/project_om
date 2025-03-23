@@ -25,11 +25,13 @@
                 <label for="count-{{ note.id }}">Шт: </label>
                 <input type="number" step="1" min="1" max="100" value="1" id="count-{{ note.id }}" name="count"/>
             </p>
-<p class="price">Цена: {{note.price}} рублей</p>
+            <p class="price">Цена: {{note.price}} рублей</p>
             <button onclick="openPopup(event)" class="add-to-cart" data-name = "{{note.name}}"  data-color ="{{note.color1}}" data-price = "{{note.price}}" data-img="{% get_static_prefix %}images/{{ note.id }}b.jpg" data-value="">Купить в 1 клик</button>
+            <button onclick="info(event)" class="add-to-cart" data-id="{{ note.id }}" data-name = "{{note.name}}"  data-color ="{{note.color1}}" data-price = "{{note.price}}" data-img="{% get_static_prefix %}images/{{ note.id }}b.jpg" data-value="">В корзину</button>
+
         </div>
         {% endfor %}
-        </div>
+    </div>
 </main>
 <nav aria-label="Page navigation" class="pagination-container">
     <ul class="pagination">
