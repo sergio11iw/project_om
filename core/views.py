@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from .models import Note, User, ShopUser
 from .forms import UserModelForm
 from django.contrib import messages
-from django.http import Http404, JsonResponse
-
+import json
+from .cart import Cart
+from django.http import JsonResponse
 def main(request):
     notes = Note.objects.all()
     return render(request, 'main.html', {'notes': notes})
@@ -78,3 +79,44 @@ def create_order(request):
 #         order.save()
 #         return JsonResponse({'success': True})
 #     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+def view_cart(request):
+    """Отображает содержимое корзины."""
+    cart = Cart(request)  # Получаем объект корзины
+    return render(request, 'cart.html', {'cart': cart})  # Передаем корзину в шаблон
+
+def add_to_cart(request, note_id):
+    note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID
+    cart = Cart(request)  # Получаем объект корзины
+
+    if request.method == 'POST':
+        data = json.loads(request.body)  # Получаем данные из запроса
+        quantity = data.get('quantity', 1)  # Получаем количество из данных
+        cart.add(note, quantity)  # Добавляем товар в корзину
+        return JsonResponse({'message': 'Товар добавлен в корзину!'})
+
+    return JsonResponse({'message': 'Ошибка при добавлении товара.'}, status=400)
+
+def remove_from_cart(request, note_id):
+    """Удаляет товар из корзины."""
+    cart = Cart(request)  # Получаем объект корзины
+    note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID
+    cart.remove(note)  # Удаляем товар из корзины
+    return redirect('view_cart')  # Перенаправляем на страницу корзины
+
+def update_cart(request, note_id):
+    """Обновляет количество товара в корзине."""
+    cart = Cart(request)  # Получаем объект корзины
+    note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID
+
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))  # Получаем новое количество из формы
+        cart.add(note, quantity)  # Обновляем количество товара
+        return redirect('view_cart')  # Перенаправляем на страницу корзины
+
+    return JsonResponse({'message': 'Ошибка при обновлении товара.'}, status=400)
+
+def cart_count(request):
+    cart = Cart(request)
+    return JsonResponse({'count': len(cart)})
+

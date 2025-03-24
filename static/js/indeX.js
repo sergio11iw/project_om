@@ -173,22 +173,22 @@ function closePopup() {
     if (element2) {
         element2.style.top = '110px';}
 }
-function info(event) {
-    // Получаем элемент, на который нажали
-    const button = event.currentTarget;
-    // Получаем значение data-color
-    const color = button.getAttribute('data-color');
-    const name = button.getAttribute('data-name');
-    const price = button.getAttribute('data-price');
-    const noteId = button.getAttribute('data-id'); // Убедитесь, что вы добавили data-id в кнопку
-
-    // Получаем количество из поля ввода
-    const quantityInput = document.getElementById(`count-${noteId}`);
-    const quantity = quantityInput ? quantityInput.value : 1; // Устанавливаем значение по умолчанию, если поле не найдено
-
-    // Выводим информацию в alert
-    alert(`Товар: ${name}\nЦвет: ${color}\nКоличество: ${quantity}\nЦена: ${price} рублей`);
-}
+//function info(event) {
+//    // Получаем элемент, на который нажали
+//    const button = event.currentTarget;
+//    // Получаем значение data-color
+//    const color = button.getAttribute('data-color');
+//    const name = button.getAttribute('data-name');
+//    const price = button.getAttribute('data-price');
+//    const noteId = button.getAttribute('data-id'); // Убедитесь, что вы добавили data-id в кнопку
+//
+//    // Получаем количество из поля ввода
+//    const quantityInput = document.getElementById(`count-${noteId}`);
+//    const quantity = quantityInput ? quantityInput.value : 1; // Устанавливаем значение по умолчанию, если поле не найдено
+//
+//    // Выводим информацию в alert
+//    alert(`Товар: ${name}\nЦвет: ${color}\nКоличество: ${quantity}\nЦена: ${price} рублей`);
+//}
 
 //$(".popup").on('submit', '.form-example', function(event){
 //
@@ -228,5 +228,62 @@ burger.addEventListener('click', () => {
     burger.classList.toggle('active');
 });
 
+
+
+// Функция для добавления товара в корзину
+function info(event) {
+    const button = event.currentTarget; // Получаем элемент кнопки
+    const noteId = button.getAttribute('data-id'); // Извлекаем ID товара
+    const countElement = document.getElementById(`count-${noteId}`); // Получаем элемент input по ID
+    const quantity = parseInt(countElement.value); // Извлекаем значение и преобразуем в число
+    console.log(button)
+    // Отправляем данные на сервер
+    fetch(`/add_to_cart/${noteId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Получаем CSRF-токен
+        },
+        body: JSON.stringify({ quantity: quantity }) // Отправляем количество
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        console.log(data.message); // Выводим сообщение об успешном добавлении
+        updateCartCount(); // Обновляем количество товаров в корзине
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+// Функция для получения CSRF-токена
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Функция для обновления количества товаров в корзине
+function updateCartCount() {
+    fetch('/cart/count/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('cart-count').innerText = data.count; // Обновляем элемент с количеством
+        });
+}
 
 
