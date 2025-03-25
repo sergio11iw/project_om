@@ -9,10 +9,14 @@ class Cart:
             cart = self.session['cart'] = {}
         self.cart = cart
 
-    def add(self, note: Note, quantity=1):
+    def add(self, note, quantity=1):
         note_id = str(note.id)
         if note_id not in self.cart:
-            self.cart[note_id] = {'quantity': 0, 'price': str(note.price)}  # Сохраняем цену как строку
+            self.cart[note_id] = {
+                'quantity': 0,
+                'price': str(note.price),
+                'color': str(note.color1)  # Сохраняем цвет товара
+            }
         self.cart[note_id]['quantity'] += quantity
         self.save()
 

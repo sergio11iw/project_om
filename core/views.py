@@ -81,9 +81,9 @@ def create_order(request):
 #     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
 def view_cart(request):
-    """Отображает содержимое корзины."""
-    cart = Cart(request)  # Получаем объект корзины
-    return render(request, 'cart.html', {'cart': cart})  # Передаем корзину в шаблон
+    cart = Cart(request)
+    total_price = cart.get_total_price()
+    return render(request, 'cart.html', {'cart': cart, 'total_price': total_price})
 
 def add_to_cart(request, note_id):
     note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID

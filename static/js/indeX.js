@@ -233,10 +233,29 @@ burger.addEventListener('click', () => {
 // Функция для добавления товара в корзину
 function info(event) {
     const button = event.currentTarget; // Получаем элемент кнопки
+    const dataName = button.getAttribute('data-name');
+    const dataColor = button.getAttribute('data-color');
+    const dataPrice = button.getAttribute('data-price');
     const noteId = button.getAttribute('data-id'); // Извлекаем ID товара
+
     const countElement = document.getElementById(`count-${noteId}`); // Получаем элемент input по ID
     const quantity = parseInt(countElement.value); // Извлекаем значение и преобразуем в число
-    console.log(button)
+    console.log(dataName, dataColor, dataPrice, quantity)
+    // Отправляем данные на сервер
+    if (quantity < 1) {
+        alert("Количество должно быть больше 0.");
+        return;
+    }
+
+    // Создаем объект данных для отправки на сервер
+    const data = {
+        id: noteId,
+        name: dataName,
+        color: dataColor,
+        price: dataPrice,
+        quantity: quantity
+    };
+
     // Отправляем данные на сервер
     fetch(`/add_to_cart/${noteId}/`, {
         method: 'POST',
@@ -244,7 +263,7 @@ function info(event) {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCookie('csrftoken') // Получаем CSRF-токен
         },
-        body: JSON.stringify({ quantity: quantity }) // Отправляем количество
+        body: JSON.stringify(data) // Отправляем данные в формате JSON
     })
     .then(response => {
         if (response.ok) {
@@ -285,5 +304,3 @@ function updateCartCount() {
             document.getElementById('cart-count').innerText = data.count; // Обновляем элемент с количеством
         });
 }
-
-
