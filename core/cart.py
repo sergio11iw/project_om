@@ -35,7 +35,6 @@ class Cart:
             del self.cart[unique_key]
             self.save()
 
-    # Остальные методы...
 
     def __iter__(self):
         note_ids = self.cart.keys()
@@ -55,8 +54,9 @@ class Cart:
         return sum(int(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
+        # Очищаем корзину
         del self.session['cart']
-        self.save()
+        self.session.modified = True
 
     def save(self):
         self.session.modified = True

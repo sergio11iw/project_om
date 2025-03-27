@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
-from .models import Note, User, ShopUser
+from .models import Note, User, ShopUser, Order, OrderItem
 from .forms import UserModelForm
 from django.contrib import messages
 import json
@@ -133,3 +133,30 @@ def cart_count(request):
     cart = Cart(request)
     return JsonResponse({'count': len(cart)})
 
+def create_order_cart(request):
+    if request.method == 'POST':
+        cart = Cart(request)
+        total_price = cart.get_total_price()
+
+        # Создаем новый заказ
+        order = Order(
+            name=request.POST['name'],
+            tel=request.POST['tel'],
+            email=request.POST['email'],
+            total_price=total_price
+        )
+        order.save()
+
+        # Сохраняем товары в заказе
+        for item in cart:
+            OrderItem.objects.create(
+                order=order,
+                product_id=item.note.id,
+                quantity=item.quantity,
+                price=item.price
+            )
+        print("Корзина до очистки:", cart.cart)  # Выводим содержимое корзины
+        cart.clear()  # Очистка корзины
+        print("Корзина после очистки:", cart.cart)
+
+        return redirect('order_success')
