@@ -81,9 +81,15 @@ def create_order(request):
 #     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
 def view_cart(request):
+    # del request.session['cart']
     cart = Cart(request)
-    total_price = cart.get_total_price()
-    return render(request, 'cart.html', {'cart': cart, 'total_price': total_price})
+    total_price = cart.get_total_price()  # Получаем общую сумму
+
+
+    return render(request, 'cart.html', {
+        'cart': cart,
+        'total_price': total_price,  # Передаем общую сумму в контекст
+    })
 
 def add_to_cart(request, note_id):
     note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID
@@ -92,17 +98,23 @@ def add_to_cart(request, note_id):
     if request.method == 'POST':
         data = json.loads(request.body)  # Получаем данные из запроса
         quantity = data.get('quantity', 1)  # Получаем количество из данных
-        cart.add(note, quantity)  # Добавляем товар в корзину
+        color = data.get('color')  # Получаем цвет из данных
+        cart.add(note, quantity, color)  # Добавляем товар в корзину
         return JsonResponse({'message': 'Товар добавлен в корзину!'})
 
     return JsonResponse({'message': 'Ошибка при добавлении товара.'}, status=400)
 
+
 def remove_from_cart(request, note_id):
-    """Удаляет товар из корзины."""
-    cart = Cart(request)  # Получаем объект корзины
-    note = get_object_or_404(Note, id=note_id)  # Получаем товар по его ID
-    cart.remove(note)  # Удаляем товар из корзины
-    return redirect('view_cart')  # Перенаправляем на страницу корзины
+    cart = Cart(request)
+    note = get_object_or_404(Note, id=note_id)
+
+    color = request.POST.get('color')
+    if color:
+        cart.remove(note, color)
+
+    # Перенаправление обратно в корзину
+    return redirect('cart_view')  # Убедитесь, что это имя совпадает с именем в urls.py
 
 def update_cart(request, note_id):
     """Обновляет количество товара в корзине."""
@@ -111,11 +123,12 @@ def update_cart(request, note_id):
 
     if request.method == 'POST':
         quantity = int(request.POST.get('quantity', 1))  # Получаем новое количество из формы
-        cart.add(note, quantity)  # Обновляем количество товара
-        return redirect('view_cart')  # Перенаправляем на страницу корзины
+        color = request.POST.get('color')  # Получаем цвет из формы
+        if color:
+            cart.add(note, quantity)  # Обновляем количество товара
+        return redirect('cart_view')  # Перенаправляем на страницу корзины
 
     return JsonResponse({'message': 'Ошибка при обновлении товара.'}, status=400)
-
 def cart_count(request):
     cart = Cart(request)
     return JsonResponse({'count': len(cart)})

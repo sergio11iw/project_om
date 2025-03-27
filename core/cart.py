@@ -1,4 +1,3 @@
-from django.conf import settings
 from .models import Note
 
 class Cart:
@@ -9,28 +8,42 @@ class Cart:
             cart = self.session['cart'] = {}
         self.cart = cart
 
-    def add(self, note, quantity=1):
+    def add(self, note, quantity=1, color=None):
         note_id = str(note.id)
-        if note_id not in self.cart:
-            self.cart[note_id] = {
+        color = color or str(note.color1)  # Получаем цвет товара, если он не передан
+
+        # Создаем уникальный ключ для товара, включая цвет
+        unique_key = f"{note_id}_{color}"
+
+        if unique_key not in self.cart:
+            # Если товара нет в корзине, добавляем его
+            self.cart[unique_key] = {
                 'quantity': 0,
                 'price': str(note.price),
-                'color': str(note.color1)  # Сохраняем цвет товара
+                'color': color,  # Сохраняем цвет товара
+                'name': str(note.name)  # Сохраняем имя товара
             }
-        self.cart[note_id]['quantity'] += quantity
+
+        # Увеличиваем количество для данного уникального ключа
+        self.cart[unique_key]['quantity'] += quantity
         self.save()
 
-    def remove(self, note: Note):
+    def remove(self, note: Note, color: str):
         note_id = str(note.id)
-        if note_id in self.cart:
-            del self.cart[note_id]
+        unique_key = f"{note_id}_{color}"  # Создаем уникальный ключ для удаления
+        if unique_key in self.cart:
+            del self.cart[unique_key]
             self.save()
+
+    # Остальные методы...
 
     def __iter__(self):
         note_ids = self.cart.keys()
-        notes = Note.objects.filter(id__in=note_ids)
+        notes = Note.objects.filter(id__in=[key.split('_')[0] for key in note_ids])  # Получаем только уникальные ID
         for note in notes:
-            self.cart[str(note.id)]['note'] = note
+            for key in note_ids:
+                if key.startswith(str(note.id)):
+                    self.cart[key]['note'] = note
         for item in self.cart.values():
             item['total_price'] = int(item['price']) * item['quantity']  # Убедитесь, что price - это число
             yield item

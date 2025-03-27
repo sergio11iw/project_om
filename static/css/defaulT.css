@@ -29,6 +29,14 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     }
+.cart {
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 2px solid red
+    }
+.cart table {
+    border: 2px solid red
+    }
 /*  ---==== HEADER ====--- */
 header {
     padding: 0 6px;
@@ -290,6 +298,7 @@ body {
     .nav.active {
         display: flex;
 
+
     }
     .home-content {
     padding-left: 5px;
@@ -304,7 +313,9 @@ body {
     display: flex;
     justify-content: space-around;
     }
-
+    .card {
+    font-size: 10px;
+    }
 
 }
 .burger.active span:nth-child(1) {
