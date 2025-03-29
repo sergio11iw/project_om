@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
+<div class="adminus">
 <h2>Элементы заказа</h2>
-<table>
+<table style="border-collapse: collapse;">
     <thead>
-        <tr>
+        <tr style="border: 1px solid black;">
             <th>Товар</th>
             <th>Цвет</th>
             <th>Количество</th>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         {% for item in order.items.all %}
-        <tr>
+        <tr style="border: 1px solid black;">
             <td>{{ item.product.name }}</td>
             <td>{{ item.color }}</td>
             <td>{{ item.quantity|floatformat:0 }}</td>
@@ -29,5 +29,5 @@
 </table>
 
 <p><strong>Общая стоимость элементов заказа:</strong> {{ total_items_price|floatformat:2 }} &#8381;</p>  <!-- Используем floatformat для форматирования -->
-
+</div>
 {% endblock %}

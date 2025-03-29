@@ -32,11 +32,81 @@ body {
 .cart {
     margin-left: 10%;
     margin-right: 10%;
-    border: 2px solid red
+    font-size: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 100px;
     }
-.cart table {
-    border: 2px solid red
+
+    .cart h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
     }
+
+    .cart h2 {
+        font-size: 1.4em;
+        margin: 5px 0 5px;
+    }
+
+    .cart table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 1em;
+    }
+
+    .cart th {
+        font-size: 1em;
+        padding: 2px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .cart td {
+        padding: 2px;
+        border-bottom: 1px solid #ddd;
+        font-size: 1em;
+    }
+    .cart a {
+        padding: 2px;
+        border-bottom: 1px solid blue;
+        font-size: 1em;
+        color: blue;
+    }
+
+    .cart button, .cart input[type="submit"] {
+        font-size: 1em;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .cart input[type="text"],
+    .cart input[type="tel"],
+    .cart input[type="email"] {
+        font-size: 1em;
+        padding: 5px;
+        margin: 5px 0 15px;
+        width: 100%;
+        max-width: 300px;
+        border: 1px solid #ddd;
+    }
+
+    .cart input[type="submit"] {
+        font-size: 1em;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+
+    .cart input[type="submit"]:hover {
+        background-color: #45a049;
+        font-size: 1.2em;
+        padding: 8px 7.5px;
+    }
+
+
 /*  ---==== HEADER ====--- */
 header {
     padding: 0 6px;
@@ -122,6 +192,29 @@ footer {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.9);
 }
+
+/* Статус */
+.status-pending {
+    background-color: rgba(228, 229, 135); /* Ожидает обработки */
+}
+.status-processing {
+    background-color: rgba(229, 186, 135); /* В обработке */
+}
+.status-completed {
+    background-color: rgba(135, 229, 173); /* Завершен */
+}
+.status-canceled {
+    background-color: rgba(229, 135, 135); /* Отменен */
+}
+.adminus {
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+td, th {
+    border: 1px solid black;
+}
+
 /*Кнопка купить*/
 #sale {
     margin-bottom: 15px;
@@ -164,7 +257,6 @@ footer {
 }
 /*плавное появление*/
 
-/* Hover state - trigger effect */
 
 .scale:hover:after {
     left: -50%;
@@ -293,31 +385,99 @@ body {
         border-radius: 15px;
         width: 90%;
 
-
     }
     .nav.active {
         display: flex;
-
-
     }
     .home-content {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 5px;
-    font-size: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin: 5px;
+        font-size: 15px;
     }
     .home-title {
-    text-align: center;
+        text-align: center;
     }
     .container {
-    display: flex;
-    justify-content: space-around;
+        display: flex;
+        justify-content: space-around;
     }
-    .card {
+    .cart {
     font-size: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 100px;
+    }
+
+    .cart h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .cart h2 {
+        font-size: 1.4em;
+        margin: 5px 0 5px;
+    }
+
+    .cart table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 0.8em;
+    }
+
+    .cart th {
+        font-size: 0.8em;
+        padding: 2px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .cart td {
+        padding: 2px;
+        border-bottom: 1px solid #eee;
+        font-size: 0.7em;
+    }
+    .cart a {
+        padding: 2px;
+        border-bottom: 1px solid blue;
+        font-size: 0.8em;
+        color: blue;
+    }
+
+    .cart button, .cart input[type="submit"] {
+        font-size: 0.7em;
+        padding: 2px 10px;
+        cursor: pointer;
+    }
+
+    .cart input[type="text"],
+    .cart input[type="tel"],
+    .cart input[type="email"] {
+        font-size: 1em;
+        padding: 5px;
+        margin: 5px 0 15px;
+        width: 100%;
+        max-width: 300px;
+        border: 1px solid #ddd;
+    }
+
+    .cart input[type="submit"] {
+        font-size: 1.1em;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+
+    }
+
+    .cart input[type="submit"]:hover {
+        background-color: #45a049;
     }
 
 }
+
 .burger.active span:nth-child(1) {
     transform: rotate(45deg) translate(10px, 5px);
     background-color: red;
@@ -334,54 +494,8 @@ body {
 .search {
     border: none; /* Убираем рамку */
     outline: none; /* Убираем стандартный контур при фокусе */
-
 }
 
-
-
-/*.burger-button {
-    display: none;
-}
-.burger-button:hover .burger-menu {
-    display: flex;
-}
-.burger-icon {
-    height: 50px;
-}
-
-.burger-menu {
-    border-left: 4px solid var(--borders-color);
-    width: 100vh;
-    background-color: var(--bg-color);
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: end;
-}
-
-.bn-item {
-    padding: 4px 16px;
-    font-size: 1.1em;
-}
-
-@media screen and (max-width: 520px) {
-    nav.base { display: none;}
-    .burger-button { display: block;}
-    .home-content {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 5px;
-    font-size: 15px;
-    }
-    .home-title {
-    text-align: center;
-    }
-
-*/
 
 
 .maps {
@@ -397,8 +511,6 @@ body {
     font-size: 12px;
     color: var(--font-color2);
 }
-
-
 
 /*слайдер*/
 .carousel-3d {
@@ -469,10 +581,9 @@ body {
    }
 .produkt:hover {
     transform: scale(1.02); /* Увеличиваем масштаб */
-    /* box-shadow: 1px 1px 4px rgb(46, 46, 46), 0 0 1em; */
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1), 0 0 0.2em;
     color: black;
-    /* background-color: rgba(128, 128, 128, 0.171); */
+
 }
 
 .produkt_list {
@@ -502,6 +613,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
+    margin-bottom: 50px;
 }
 #prod:hover  {
     transform: scale(1.02); /* Увеличиваем масштаб */
@@ -514,7 +626,6 @@ body {
 }
 
 #radioButton {
-    /* border: 2px solid gray; */
     background: linear-gradient(white, rgb(219, 219, 219));
     font-size: 15px;
     padding: 4px;
@@ -553,55 +664,7 @@ body {
     padding: 5px;
     border-radius: 8px;
 }
-/*
-:active, :hover, :focus {
-    outline: 0;
-    outline-offset: 0;
-}
-.forms {
-    position: relative;
-    width: 250px;
-    margin: 0 auto;
-}
-.search{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding-left: 10px;
-}
-*//*
-.submit{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: url("https://img.icons8.com/ffffff/search") center center/50% auto
-    no-repeat var(--borders-color);
-    border: 0;
-}
-/*
-.forms:hover > .submit{
-    transform: translate(200px, 0);
-    transition: 0.8s;
-    background-color: var(--borders-color);
-    border-color: var(--borders-color);
-    border: solid var(--borders-color) 2px;
-}
-.forms:hover > .search{
-    width: 240px;
-    border-radius: 20px;
-    transform-origin: left;
-    transition: 0.8s;
-    border: solid var(--borders-color) 2px;
-}
-.search:active {
-    border: solid var(--borders-color) 2px;
-}*/
+
 /* =====Описание===== */
 
 /* =====ASIDE===== */
@@ -739,7 +802,7 @@ summary:hover {
 .add-to-cart:hover {
     text-shadow: 1px 1px 4px red, 0 0 1em;
     color: black;
-    background-color: rgba(128, 128, 128, 0.171);
+    font-size: 1.1em;
 }
 .checkout-button:hover {
     background-color: red;
@@ -843,7 +906,7 @@ summary:hover {
 .page-item{
     display:inline-block;
     margin: 5px;
-    padding 5px;
+    padding: 5px;
 }
 .page-item.active .page-link {
     color: red;
@@ -852,7 +915,4 @@ summary:hover {
 }
 .page-item:hover {
     transform: scale(1.5); /* Увеличиваем масштаб */
-    /* box-shadow: 1px 1px 4px rgb(46, 46, 46), 0 0 1em; */
-    /*box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1), 0 0 0.2em;*/
-
-
+    }

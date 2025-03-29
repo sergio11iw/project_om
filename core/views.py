@@ -2,22 +2,24 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from .models import Note, User, ShopUser, Order, OrderItem
-from .forms import UserModelForm
-from django.contrib import messages
 import json
 from .cart import Cart
 from django.http import JsonResponse
+from django.contrib import messages
+from .forms import UserModelForm
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 def main(request):
     notes = Note.objects.all()
     return render(request, 'main.html', {'notes': notes})
 def contacts(request):
     return render(request, 'contacts.html')
+@login_required
 def adminus(request):
     shopUser = ShopUser.objects.all()
     user = User.objects.all()
     orders = Order.objects.all()
     return render(request, 'adminus.html', {'shopUser': shopUser, 'user': user, 'orders': orders})
-
 
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
@@ -63,15 +65,18 @@ def feedback(request):
     if request.method == 'POST':
         form = UserModelForm(request.POST)
         if form.is_valid():
-            form.save()
-            print("Данные успешно сохранены")
+            instance = form.save(commit=False)
+            instance.status = 'pending'
+            instance.save()
             messages.success(request, 'Данные получены, мы свяжемся с вами в ближайшее время!')
-            return redirect('main')
+            return redirect(request.META.get('HTTP_REFERER', 'main'))  # Возврат на предыдущую страницу
         else:
-            print("Форма не валидна:", form.errors)
-    else:
-        form = UserModelForm()
-    return render(request, 'main.html',{'form': form})
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+            return redirect(request.META.get('HTTP_REFERER', 'main'))
+
+    # GET запрос
+    form = UserModelForm()
+    return render(request, 'main.html', {'form': form})
 def create_order(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -101,6 +106,26 @@ def create_order(request):
     return render(request, 'produkts.html')
 
 
+@require_POST
+def change_order_status(request, model_name, object_id):
+    if model_name == 'user':
+        obj = get_object_or_404(User, id=object_id)
+    elif model_name == 'shopuser':
+        obj = get_object_or_404(ShopUser, id=object_id)
+    elif model_name == 'order':
+        obj = get_object_or_404(Order, id=object_id)
+    else:
+        return redirect('adminus')  # Если модель не найдена, перенаправляем
+
+    new_status = request.POST.get('status')
+
+    # Проверяем, что новый статус допустим
+    if new_status in dict(obj.STATUS_CHOICES).keys():
+        obj.status = new_status
+        obj.save()
+
+    return redirect('adminus')
+
 def view_cart(request):
     # del request.session['cart']
     cart = Cart(request)
@@ -121,6 +146,9 @@ def add_to_cart(request, note_id):
         quantity = data.get('quantity', 1)  # Получаем количество из данных
         color = data.get('color')  # Получаем цвет из данных
         cart.add(note, quantity, color)  # Добавляем товар в корзину
+
+        # Добавляем сообщение об успехе
+
         return JsonResponse({'message': 'Товар добавлен в корзину!'})
 
     return JsonResponse({'message': 'Ошибка при добавлении товара.'}, status=400)
@@ -174,10 +202,13 @@ def create_order_cart(request):
                 order=order,
                 product_id=item['product_id'],  # Убедитесь, что вы используете правильный ключ
                 quantity=item['quantity'],
-                price=item['price']
+                price=item['price'],
+                color=item['color']  # Сохраняем цвет
             )
 
         cart.clear()  # Очистка корзины
-        return redirect('order_success')
+
+        messages.success(request, 'Заказ оформлен!')
+        return redirect(request.META.get('HTTP_REFERER', 'main'))  # Возврат на предыдущую страницу
 def order_success_view(request):
     return render(request, 'order_success.html')

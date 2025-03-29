@@ -1,5 +1,6 @@
 from .models import Note
 
+
 class Cart:
     def __init__(self, request):
         self.session = request.session
@@ -29,6 +30,7 @@ class Cart:
         self.cart[unique_key]['quantity'] += quantity
         self.save()
 
+
     def remove(self, note: Note, color: str):
         note_id = str(note.id)
         unique_key = f"{note_id}_{color}"  # Создаем уникальный ключ для удаления
@@ -53,6 +55,7 @@ class Cart:
 
     def get_total_price(self):
         return sum(int(item['price']) * item['quantity'] for item in self.cart.values())
+
 
     def clear(self):
         # Очищаем корзину

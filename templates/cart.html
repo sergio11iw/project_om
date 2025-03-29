@@ -5,9 +5,9 @@
     <h1>Ваша корзина</h1>
 
     {% if cart %}
-        <table>
+        <table  style="border-collapse: collapse;">
             <thead>
-                <tr>
+                <tr class="carttab">
                     <th>Товар</th>
                     <th>Цвет</th>
                     <th>Кол-во</th>
@@ -16,7 +16,7 @@
                     <th>Действия</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cart-items">
                 {% for item in cart %}
                     <tr>
                         <td><a href="{% url 'list' item.note.id %}">{{ item.name }}</a></td>

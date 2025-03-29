@@ -247,8 +247,8 @@ function info(event) {
 
     const countElement = document.getElementById(`count-${noteId}`); // Получаем элемент input по ID
     const quantity = parseInt(countElement.value); // Извлекаем значение и преобразуем в число
-    console.log(dataName, dataColor, dataPrice, quantity)
-    // Отправляем данные на сервер
+
+    // Проверяем количество
     if (quantity < 1) {
         alert("Количество должно быть больше 0.");
         return;
@@ -281,12 +281,36 @@ function info(event) {
     .then(data => {
         console.log(data.message); // Выводим сообщение об успешном добавлении
         updateCartCount(); // Обновляем количество товаров в корзине
+
+        // Отображаем сообщение на странице
+        displayMessage(data.message); // Функция для отображения сообщения
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
 
+// Функция для отображения сообщения на странице
+function displayMessage(message) {
+    const messageContainer = document.getElementById('message-container'); // Элемент для отображения сообщения
+    messageContainer.innerHTML = `<div class="alert alert-success">${message}</div>`; // Создаем элемент с сообщением
+    setTimeout(() => {
+        messageContainer.innerHTML = ''; // Удаляем сообщение через 3 секунды
+    }, 3000);
+}
+
+function displayMessage(message) {
+    const messageContainer = document.getElementById('message-container'); // Элемент для отображения сообщения
+    messageContainer.innerHTML = `<div class="alert alert-success">${message}</div>`; // Создаем элемент с сообщением
+    messageContainer.classList.add('show'); // Добавляем класс для анимации
+
+    setTimeout(() => {
+        messageContainer.classList.remove('show'); // Удаляем класс через 3 секунды
+        setTimeout(() => {
+            messageContainer.innerHTML = ''; // Удаляем сообщение через 3 секунды после исчезновения
+        }, 500); // Время, соответствующее времени анимации
+    }, 3000);
+}
 // Функция для получения CSRF-токена
 function getCookie(name) {
     let cookieValue = null;

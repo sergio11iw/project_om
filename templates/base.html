@@ -19,7 +19,7 @@
             <div class="header__inner">
                 <a href="/" class="site-logo">
                     <div class="scale">
-                        <img src='{% static "images/Ometa.JPG" %}' alt="Logo" class="icon">
+                        <img src='{% static "images/Ometa.jpg" %}' alt="Logo" class="icon">
                     </div>
                 </a>
                 <div class="burger" id="burger">
@@ -39,14 +39,16 @@
                         <h3 style="padding-top: 5px"><a href="/" class="bn-item {% if request.path == '/' %}active{% endif %}">Главная</a></h3>
                         <h3 style="padding-top: 5px"><a href="{% url 'produkts' %}" class="bn-item {% if request.path == '/produkts' %}active{% endif %}">Продукция</a></h3>
                         <h3 style="padding-top: 5px"><a href="{% url 'contacts' %}" class="bn-item {% if request.path == '/contacts' %}active{% endif %}">Контакты</a></h3>
-                        <h3 style="padding-top: 5px"><a href="{% url 'cart_view' %}" class="bn-item {% if request.path == '/contacts' %}active{% endif %}">Корзина</a></h3>
+                        <h3 style="padding-top: 5px"><a href="{% url 'cart_view' %}"  class="bn-item {% if request.path == '/contacts' %}active{% endif %}">Корзина </a></h3>
+                        {% if request.user.is_authenticated  %}
                         <h3 style="padding-top: 5px"><a href="{% url 'adminus' %}" class="bn-item {% if request.path == '/adminus' %}active{% endif %}">Админус</a></h3>
-
+                        {% endif %}
 
                     </nav>
 
         </div>
     </header>
+        <div id="message-container" style="border-radius: 10px; position: fixed; right: 30px; bottom: 80px; background-color: #d4edda; color: #155724; border-color: #c3e6cb;"></div>
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -76,7 +78,7 @@
             </p>
             <p>
                 <label>Телефон</label>
-                <input type="tel" name="tel" required>
+                <input type="tel" id="tel" name="tel" required placeholder="+7XXXXXXXXXX" pattern="\+7[0-9]{10}" />
             </p>
             <button type="submit" class="btn btn-primary">Отправить</button>
         </form>

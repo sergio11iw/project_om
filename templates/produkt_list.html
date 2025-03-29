@@ -23,7 +23,7 @@
                     </p>
                     <p class="price">Цена: {{list.price}} рублей</p>
                     <button onclick="openPopup(event)" class="add-to-cart" data-name = "{{list.name}}"  data-color ="{{list.color1}}" data-price = "{{list.price}}" data-img="{% get_static_prefix %}images/{{ list.id }}b.jpg" data-value="">Купить в 1 клик</button>
-                    <button onclick="info(event)" class="add-to-cart" data-id="{{ note.id }}" data-name = "{{note.name}}"  data-color ="{{note.color1}}" data-price = "{{note.price}}" data-img="{% get_static_prefix %}images/{{ note.id }}b.jpg" data-value="">В корзину</button>
+                    <button onclick="info(event)" class="add-to-cart" data-id="{{ list.id }}" data-name = "{{list.name}}"  data-color ="{{list.color1}}" data-price = "{{list.price}}" data-img="{% get_static_prefix %}images/{{ list.id }}b.jpg" data-value="">В корзину</button>
                 </div>
         </div>
     </div>
