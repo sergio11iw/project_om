@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<h1>Заказы</h1>
+<table style="border: 1px solid black;">
+    <thead >
+        <tr style="border: 1px solid black;">
+            <th>Клиент</th>
+            <th>Номер</th>
+            <th>E-mail</th>
+            <th>Изделие</th>
+            <th>Цвет</th>
+            <th>Кол-во</th>
+            <th>Сумма</th>
+            <th>Статус заказа</th>
+        </tr>
+    </thead>
+    {% for shop in shopUser  %}
+    <tbody>
+      <tr>
+          <td>{{ shop.name }}</td>
+          <td>{{ shop.tel }}</td>
+          <td>{{ shop.email }}</td>
+          <td>{{ shop.product_name }}</td>
+          <td>{{ shop.product_color }}</td>
+          <td>{{ shop.product_count }}</td>
+          <td>{{ shop.product_total }}</td>
+          <td>{{ shop.get_status_label }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<h1>Обратная связь</h1>
+<table style="border: 1px solid black;">
+    <thead >
+        <tr style="border: 1px solid black;">
+            <th>Клиент</th>
+            <th>Номер</th>
+            <th>E-mail</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    {% for useres in user  %}
+    <tbody>
+      <tr>
+          <td style="border: 1px solid black;">{{ useres.name }}</td>
+          <td style="border: 1px solid black;">{{ useres.tel }}</td>
+          <td style="border: 1px solid black;">{{ useres.email }}</td>
+          <td style="border: 1px solid black;">{{ useres.get_status_label }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+<h1>Заказы с корзины</h1>
+<table style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="border: 1px solid black;">
+            <th>Клиент</th>
+            <th>Номер</th>
+            <th>E-mail</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    {% for order in orders %}
+    <tbody>
+      <tr>
+          <td style="border: 1px solid black;"><a href="{% url 'order_detail' order.id %}">{{ order.name }}</a></td>
+          <td style="border: 1px solid black;">{{ order.tel }}</td>
+          <td style="border: 1px solid black;">{{ order.email }}</td>
+          <td style="border: 1px solid black;">{{ order.get_status_display }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endblock %}

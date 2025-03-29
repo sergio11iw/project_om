@@ -21,7 +21,8 @@ class Cart:
                 'quantity': 0,
                 'price': str(note.price),
                 'color': color,  # Сохраняем цвет товара
-                'name': str(note.name)  # Сохраняем имя товара
+                'name': str(note.name),  # Сохраняем имя товара
+                'product_id': note_id  # Сохраняем ID товара
             }
 
         # Увеличиваем количество для данного уникального ключа

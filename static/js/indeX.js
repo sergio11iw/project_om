@@ -154,13 +154,20 @@ function openPopup(event) {
     console.log(totalPrice)
     console.log(target.dataset.name)
 
+document.querySelector('.shopprod3').src = target.dataset.img || '';
+     document.getElementById('product_name_display').innerText = target.dataset.name; // Название товара
+    document.getElementById('product_color_display').innerText = target.dataset.color; // Цвет товара
+    document.getElementById('product_count_display').innerText = countValue; // Количество товара
+    document.getElementById('product_total_display').innerText = totalPrice; // Сумма
 
-    document.querySelector('.shopprod1').innerText = target.dataset.name
-    document.querySelector('.shopprod2').innerText = `Итого: ${totalPrice} руб`
-    document.querySelector('.shopprod3').src = target.dataset.img || '';
-    document.querySelector('.shopprod4').innerText = `Количество: ${countValue}`; // Устанавливаем количество
-    document.querySelector('.shopprod5').innerText = target.dataset.color
-    document.querySelector('.shopprod6').value = `${target.dataset.name} + ${totalPrice} + ${countValue} + ${target.dataset.color} + ${target.dataset.img || ''}`
+    // Устанавливаем значения в скрытые поля
+    document.getElementById('product_name').value = target.dataset.name; // Название товара
+    document.getElementById('product_color').value = target.dataset.color; // Цвет товара
+    document.getElementById('product_count').value = countValue; // Количество товара
+    document.getElementById('product_total').value = totalPrice; // Сумма
+
+
+//    document.querySelector('.shopprod6').value = `${target.dataset.name} + ${totalPrice} + ${countValue} + ${target.dataset.color} + ${target.dataset.img || ''}`
     console.log(target.dataset.color)
 
 }

@@ -19,7 +19,7 @@
             <tbody>
                 {% for item in cart %}
                     <tr>
-                        <td><a href="{% url 'list' item.note.id %}">{{ item.note.name }}</a></td>
+                        <td><a href="{% url 'list' item.note.id %}">{{ item.name }}</a></td>
                         <td>{{ item.color }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.price }} &#8381;</td>
@@ -36,10 +36,10 @@
             </tbody>
         </table>
 
-        <h2>Общая сумма: {{ total_price }} &#8381;</h2>  <!-- Используем переданную общую сумму -->
+        <h2>Общая сумма: {{ total_price }} &#8381;</h2>
 
         <h2>Оформление заказа</h2>
-        <form id="order-form" action="{% url 'create_order' %}" method="post">
+        <form id="order-form" action="{% url 'create_order_cart' %}" method="post">
             {% csrf_token %}
             <div>
                 <label for="name">Фамилия Имя:</label>
@@ -53,15 +53,8 @@
                 <label for="email">E-Mail:</label>
                 <input type="email" id="email" name="email" required />
             </div>
-            <h3>Товары в заказе:</h3>
-            <ul>
-                {% for item in cart %}
-                    <li>
-                        {{ item.note.name }} - Цвет: {{ item.color }}, Кол-во: {{ item.quantity }}, Цена: {{ item.price }} &#8381;
-                    </li>
-                {% endfor %}
-            </ul>
-            <input type="submit" value="Купить в 1 клик" />
+
+            <input type="submit" value="Оформить заказ" />
         </form>
     {% else %}
         <p>Ваша корзина пуста.</p>

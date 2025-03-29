@@ -91,19 +91,27 @@
           <input type="email" name="email" id="email" required />
         </div>
         <div class="shopprod1">
-        </div>
-        <div class="shopprod5">
-        </div>
-        <div class="shopprod4">
-            Количество: <span id="product-count"></span>
-        </div>
-        <div class="shopprod2">
-        </div>
+
+        <span id="product_name_display"></span> <!-- Отображение названия товара -->
+        <input type="hidden" name="product_name" id="product_name" required="">
+    </div>
+    <div class="shopprod5">
+        <span id="product_color_display"></span> <!-- Отображение цвета товара -->
+        <input type="hidden" name="product_color" id="product_color" required="">
+    </div>
+    <div class="shopprod4">
+        <span id="product_count_display"></span> шт <!-- Отображение количества товара -->
+        <input type="hidden" name="product_count" id="product_count" required="">
+    </div>
+    <div class="shopprod2">
+        <p><label for="product_total">Сумма:</label></p>
+        <span id="product_total_display"></span> руб<!-- Отображение суммы -->
+        <input type="hidden" name="product_total" id="product_total" required="">
+    </div>
         <img class="shopprod3" style="width: 150px;" src="" >
         <div class="form-example2">
-          <input type="submit" value="Купить в 1 клик" class="bold-button" />
+            <input type="submit" value="Купить в 1 клик" class="bold-button" />
         </div>
-        <input type="hidden" name="other" value="" class="shopprod6" />
     </form>
 </div>
 {% endblock %}

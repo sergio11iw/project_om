@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<h2>Элементы заказа</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Цвет</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Итого</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.items.all %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.color }}</td>
+            <td>{{ item.quantity|floatformat:0 }}</td>
+            <td>{{ item.price|floatformat:0 }} &#8381;</td>
+            <td>{{ item.total_price|floatformat:0 }} &#8381;</td>  <!-- Используем floatformat для форматирования -->
+
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><strong>Общая стоимость элементов заказа:</strong> {{ total_items_price|floatformat:2 }} &#8381;</p>  <!-- Используем floatformat для форматирования -->
+
+{% endblock %}
