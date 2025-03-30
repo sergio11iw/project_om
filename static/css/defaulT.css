@@ -371,7 +371,9 @@ body {
     .burger {
         display: flex;
     }
-
+    #radioButton h1 img{
+    width: 300px !important;
+}
     .nav {
         display: none;
         flex-direction: column;
@@ -475,6 +477,7 @@ body {
     .cart input[type="submit"]:hover {
         background-color: #45a049;
     }
+
 
 }
 
@@ -597,7 +600,6 @@ body {
     margin: 10px;
     padding: 10px;  
     background-color: rgba(128, 128, 128, 0.171);
-    
 }
 .produkt_list_info h1 {
     border-bottom: 2px solid var(--borders-color);
@@ -608,12 +610,20 @@ body {
     margin-bottom: 10px;
     color: var(--font-color2) ;
 }
+
+div#radioButton img {
+    width: 600px;
+}
+
 .container {
     display:flex;
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+}
+.container_pr {
+    margin-bottom: 60px;
 }
 #prod:hover  {
     transform: scale(1.02); /* Увеличиваем масштаб */
