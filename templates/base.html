@@ -39,7 +39,7 @@
                         <h3 style="padding-top: 5px"><a href="/" class="bn-item {% if request.path == '/' %}active{% endif %}">Главная</a></h3>
                         <h3 style="padding-top: 5px"><a href="{% url 'produkts' %}" class="bn-item {% if request.path == '/produkts' %}active{% endif %}">Продукция</a></h3>
                         <h3 style="padding-top: 5px"><a href="{% url 'contacts' %}" class="bn-item {% if request.path == '/contacts' %}active{% endif %}">Контакты</a></h3>
-                        <h3 style="padding-top: 5px"><a href="{% url 'cart_view' %}"  class="bn-item {% if request.path == '/contacts' %}active{% endif %}">Корзина </a></h3>
+                        <h3 style="padding-top: 5px"><a href="{% url 'cart_view' %}"  class="bn-item {% if request.path == '/cart/' %}active{% endif %}">Корзина </a></h3>
                         {% if request.user.is_authenticated  %}
                         <h3 style="padding-top: 5px"><a href="{% url 'adminus' %}" class="bn-item {% if request.path == '/adminus' %}active{% endif %}">Админус</a></h3>
                         {% endif %}
