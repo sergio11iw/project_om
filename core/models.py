@@ -15,7 +15,7 @@ class Note(models.Model):
         return self.name
 class User(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Ожидает обработки'),
+        ('pending', 'Ожидает'),
         ('processing', 'В обработке'),
         ('completed', 'Завершен'),
         ('canceled', 'Отменен'),
@@ -37,7 +37,7 @@ class User(models.Model):
 
 class ShopUser (models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Ожидает обработки'),
+        ('pending', 'Ожидает'),
         ('processing', 'В обработке'),
         ('completed', 'Завершен'),
         ('canceled', 'Отменен'),
@@ -70,7 +70,7 @@ class ShopUser (models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Ожидает обработки'),
+        ('pending', 'Ожидает'),
         ('processing', 'В обработке'),
         ('completed', 'Завершен'),
         ('canceled', 'Отменен'),

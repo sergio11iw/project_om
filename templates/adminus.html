@@ -7,12 +7,9 @@
     <thead >
         <tr style="border: 1px solid black;">
             <th>Клиент</th>
-            <th>Номер</th>
-            <th>E-mail</th>
-            <th>Изделие</th>
-            <th>Цвет</th>
-            <th>Кол-во</th>
-            <th>Сумма</th>
+            <th>Тел/E-mail</th>
+            <th>Изделие/Цвет</th>
+            <th>Кол-во/Сумма</th>
             <th>Статус заказа</th>
         </tr>
     </thead>
@@ -20,12 +17,9 @@
     <tbody>
       <tr style="border: 1px solid black;">
           <td style="border: 1px solid black;">{{ shop.name }}</td>
-          <td style="border: 1px solid black;">{{ shop.tel }}</td>
-          <td style="border: 1px solid black;">{{ shop.email }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_name }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_color }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_count }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_total }}</td>
+          <td style="border: 1px solid black;">{{ shop.tel }}<br>{{ shop.email }}</td>
+          <td style="border: 1px solid black;">{{ shop.product_name }}<br>{{ shop.product_color }}</td>
+          <td style="border: 1px solid black;">{{ shop.product_count }}<br>{{ shop.product_total }}</td>
           <td style="border: 1px solid black; ">
                <form method="POST" action="{% url 'change_order_status' 'shopuser' shop.id %}" >
                     {% csrf_token %}
