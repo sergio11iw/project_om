@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 class Note(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     sitze = models.TextField(verbose_name='Размеры', blank=True, null=True)
