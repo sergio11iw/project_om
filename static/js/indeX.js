@@ -262,7 +262,7 @@ function info(event) {
         price: dataPrice,
         quantity: quantity
     };
-
+    console.log(data)
     // Отправляем данные на сервер
     fetch(`/add_to_cart/${noteId}/`, {
         method: 'POST',
@@ -335,3 +335,34 @@ function updateCartCount() {
             document.getElementById('cart-count').innerText = data.count; // Обновляем элемент с количеством
         });
 }
+function checkMaxValue(input) {
+    if (input.value > 30) {
+        input.value = 30; // Устанавливаем значение в 30, если больше
+    }
+}
+
+function filterOrders(tableBodyId, selectedStatus) {
+
+    const rows = document.querySelectorAll(`#${tableBodyId} tr[data-status]`);
+    rows.forEach(row => {
+        const status = row.getAttribute('data-status'); // Получаем статус строки
+        // Проверяем, соответствует ли статус выбранному значению фильтра
+        if (selectedStatus === "" || status === selectedStatus) {
+            row.style.display = ""; // Показываем строку
+        } else {
+            row.style.display = "none"; // Скрываем строку
+        }
+    });
+}
+
+// Функция для инициализации фильтрации по умолчанию
+function initializeFilters() {
+    // Фильтруем каждую таблицу по статусу "pending"
+    filterOrders('orders-table-body', 'pending');
+    filterOrders('shop-table-body', 'pending');
+    filterOrders('feedback-table-body', 'pending');
+}
+
+// Вызываем функцию инициализации при загрузке страницы
+window.onload = initializeFilters;
+

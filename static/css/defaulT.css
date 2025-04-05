@@ -809,9 +809,14 @@ summary:hover {
 .cart-items {
     list-style-type: none;
 }
+.add-to-cart, .count input {
+    border: 2px solid var(--font-color2);
+    border-radius: 5px;
+    padding: 3px
+}
+
 .add-to-cart:hover {
-    text-shadow: 1px 1px 4px red, 0 0 1em;
-    color: black;
+    background-color: #d4edda;
     font-size: 1.1em;
 }
 .checkout-button:hover {

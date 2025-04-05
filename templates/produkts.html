@@ -23,7 +23,7 @@
             </div>
             <p class="count" data-note-id="{{ note.id }}">
                 <label for="count-{{ note.id }}">Шт: </label>
-                <input type="number" step="1" min="1" max="100" value="1" id="count-{{ note.id }}" name="count"/>
+                <input type="number" step="1" min="1" max="30" value="1" id="count-{{ note.id }}" name="count" oninput="checkMaxValue(this)"/>
             </p>
             <p class="price">Цена: {{note.price}} рублей</p>
             <button onclick="openPopup(event)" class="add-to-cart" data-name = "{{note.name}}"  data-color ="{{note.color1}}" data-price = "{{note.price}}" data-img="{% get_static_prefix %}images/{{ note.id }}b.jpg" data-value="">Купить в 1 клик</button>

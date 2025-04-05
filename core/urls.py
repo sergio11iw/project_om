@@ -18,6 +18,7 @@ urlpatterns = [
     path('remove_from_cart/<int:note_id>/', remove_from_cart, name='remove_from_cart'),
     path('update_cart/<int:note_id>/', update_cart, name='update_cart'),
     path('order-success/', order_success_view, name='order_success'),
+
     # Для обновления количества
 
 ]

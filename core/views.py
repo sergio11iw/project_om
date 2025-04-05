@@ -14,6 +14,7 @@ def main(request):
     return render(request, 'main.html', {'notes': notes})
 def contacts(request):
     return render(request, 'contacts.html')
+
 @login_required
 def adminus(request):
     shopUser = ShopUser.objects.all()
@@ -212,3 +213,5 @@ def create_order_cart(request):
         return redirect(request.META.get('HTTP_REFERER', 'main'))  # Возврат на предыдущую страницу
 def order_success_view(request):
     return render(request, 'order_success.html')
+
+

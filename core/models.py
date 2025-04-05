@@ -24,9 +24,11 @@ class User(models.Model):
     email = models.EmailField(verbose_name='Почта', blank=True, null=True)
     tel = models.PositiveIntegerField(verbose_name='Телефон')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     class Meta:
         verbose_name = 'Обратная связь'
         verbose_name_plural = 'Обратная связь'
+        ordering = ['-created_date']
     def get_status_label(self):
         for key, label in self.STATUS_CHOICES:
             if key == self.status:
@@ -51,11 +53,12 @@ class ShopUser (models.Model):
     product_count = models.CharField(verbose_name='Кол-во', max_length=255, null=True, blank=True)
     product_total = models.CharField(verbose_name='Сумма', max_length=255, null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
-
+        ordering = ['-created_date']
     def get_status_label(self):
         for key, label in self.STATUS_CHOICES:
             if key == self.status:
@@ -80,9 +83,17 @@ class Order(models.Model):
     email = models.EmailField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # Добавлено поле статуса
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Заказ с корзины'
+        verbose_name_plural = 'Заказы с корзины'
+        ordering = ['-created_date']
     def __str__(self):
         return f"Order {self.id} by {self.name}"
+
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)

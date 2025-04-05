@@ -2,39 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="cart">
-<h1>Заказы</h1>
-<table style="border-collapse: collapse; width: 80%;">
-    <thead >
-        <tr style="border: 1px solid black;">
-            <th>Клиент</th>
-            <th>Тел/E-mail</th>
-            <th>Изделие/Цвет</th>
-            <th>Кол-во/Сумма</th>
-            <th>Статус заказа</th>
-        </tr>
-    </thead>
-    {% for shop in shopUser  %}
-    <tbody>
-      <tr style="border: 1px solid black;">
-          <td style="border: 1px solid black;">{{ shop.name }}</td>
-          <td style="border: 1px solid black;">{{ shop.tel }}<br>{{ shop.email }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_name }}<br>{{ shop.product_color }}</td>
-          <td style="border: 1px solid black;">{{ shop.product_count }}<br>{{ shop.product_total }}</td>
-          <td style="border: 1px solid black; ">
-               <form method="POST" action="{% url 'change_order_status' 'shopuser' shop.id %}" >
-                    {% csrf_token %}
-                        <select class="{% if shop.status == 'pending' %}status-pending{% elif shop.status == 'processing' %}status-processing{% elif shop.status == 'completed' %}status-completed{% elif shop.status == 'canceled' %}status-canceled{% endif %}" name="status">
-                        {% for key, label in shop.STATUS_CHOICES %}
-                <option value="{{ key }}" {% if key == shop.status %}selected{% endif %}>{{ label }}</option>
-                {% endfor %}
-                </select>
-                <button type="submit">Изменить</button>
-            </form>
-          </td>
-      </tr>
-    </tbody>
-    {% endfor %}
-</table>
+
 
 <h1>Заказы с корзины</h1>
 <table style="border-collapse: collapse; width: 80%;">
@@ -43,60 +11,141 @@
             <th>Клиент</th>
             <th>Номер</th>
             <th>E-mail</th>
-            <th>Статус</th>
+            <th>
+                <label for="status-filter"></label>
+                <select id="status-filter" onchange="filterOrders('orders-table-body', this.value)">
+                    <option value="">Все статусы</option>
+                    <option value="pending" selected>В ожидании</option>
+                    <option value="processing">В обработке</option>
+                    <option value="completed">Завершен</option>
+                    <option value="canceled">Отменен</option>
+                </select>
+            </th>
         </tr>
     </thead>
-    {% for order in orders %}
-    <tbody>
-      <tr>
-          <td style="border: 1px solid black;"><a href="{% url 'order_detail' order.id %}">{{ order.name }}</a></td>
-          <td style="border: 1px solid black;">{{ order.tel }}</td>
-          <td style="border: 1px solid black;">{{ order.email }}</td>
-          <td style="border: 1px solid black;">
-    <form method="POST" action="{% url 'change_order_status' 'order' order.id %}">
-        {% csrf_token %}
-        <select name="status" class="{% if order.status == 'pending' %}status-pending{% elif order.status == 'processing' %}status-processing{% elif order.status == 'completed' %}status-completed{% elif order.status == 'canceled' %}status-canceled{% endif %}">
-            {% for key, label in order.STATUS_CHOICES %}
-                <option value="{{ key }}" {% if key == order.status %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Изменить</button>
-    </form>
-</td>
-      </tr>
+    <tbody id="orders-table-body">
+        {% for order in orders %}
+        <tr class="order-row" data-status="{{ order.status }}">
+            <td style="border: 1px solid black;">
+                <a href="{% url 'order_detail' order.id %}">{{ order.name }}</a>
+            </td>
+            <td style="border: 1px solid black;">{{ order.tel }}</td>
+            <td style="border: 1px solid black;">{{ order.email }}</td>
+            <td style="border: 1px solid black;">
+                <form method="POST" action="{% url 'change_order_status' 'order' order.id %}">
+                    {% csrf_token %}
+                    <select name="status" class="{% if order.status == 'pending' %}status-pending{% elif order.status == 'processing' %}status-processing{% elif order.status == 'completed' %}status-completed{% elif order.status == 'canceled' %}status-canceled{% endif %}">
+                        {% for key, label in order.STATUS_CHOICES %}
+                            <option value="{{ key }}" {% if key == order.status %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Изменить</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">Нет заказов для отображения.</td>
+            </tr>
+        {% endfor %}
     </tbody>
-    {% endfor %}
 </table>
+<h1>Заказы</h1>
+
+
+    <table style="border-collapse: collapse; width: 80%;">
+        <thead>
+            <tr style="border: 1px solid black;">
+                <th>Клиент</th>
+                <th>Тел/E-mail</th>
+                <th>Изделие/Цвет</th>
+                <th>Кол-во/Сумма</th>
+                <th>
+                    <label for="status-filter-shop"></label>
+                    <select id="status-filter-shop" onchange="filterOrders('shop-table-body', this.value)">
+                        <option value="">Все статусы</option>
+                        <option value="pending" selected>В ожидании</option>
+                        <option value="processing">В обработке</option>
+                        <option value="completed">Завершен</option>
+                        <option value="canceled">Отменен</option>
+                    </select>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="shop-table-body">
+            {% for shop in shopUser  %}
+            <tr class="shop-row" data-status="{{ shop.status }}">
+                <td style="border: 1px solid black;">{{ shop.name }}</td>
+                <td style="border: 1px solid black;">{{ shop.tel }}<br>{{ shop.email }}</td>
+                <td style="border: 1px solid black;">{{ shop.product_name }}<br>{{ shop.product_color }}</td>
+                <td style="border: 1px solid black;">{{ shop.product_count }}<br>{{ shop.product_total }}</td>
+                <td style="border: 1px solid black;">
+                    <form method="POST" action="{% url 'change_order_status' 'shopuser' shop.id %}">
+                        {% csrf_token %}
+                        <select class="{% if shop.status == 'pending' %}status-pending{% elif shop.status == 'processing' %}status-processing{% elif shop.status == 'completed' %}status-completed{% elif shop.status == 'canceled' %}status-canceled{% endif %}" name="status">
+                            {% for key, label in shop.STATUS_CHOICES %}
+                                <option value="{{ key }}" {% if key == shop.status %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Изменить</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Нет заказов для отображения.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
 <h1>Обратная связь</h1>
+
+
 <table style="border-collapse: collapse; width: 80%;">
-    <thead >
+    <thead>
         <tr style="border: 1px solid black;">
             <th>Клиент</th>
             <th>Номер</th>
             <th>E-mail</th>
-            <th>Статус</th>
+            <th>
+                <label for="status-filter-feedback"></label>
+                <select id="status-filter-feedback" onchange="filterOrders('feedback-table-body', this.value)">
+                    <option value="">Все статусы</option>
+                    <option value="pending" selected>В ожидании</option>
+                    <option value="processing">В обработке</option>
+                    <option value="completed">Завершен</option>
+                    <option value="canceled">Отменен</option>
+                </select>
+            </th>
         </tr>
     </thead>
-    {% for useres in user  %}
-    <tbody>
-      <tr>
-          <td style="border: 1px solid black;">{{ useres.name }}</td>
-          <td style="border: 1px solid black;">{{ useres.tel }}</td>
-          <td style="border: 1px solid black;">{{ useres.email }}</td>
-          <td style="border: 1px solid black;" >
-    <form method="POST" action="{% url 'change_order_status' 'user' useres.id %}">
-        {% csrf_token %}
-        <select name="status" class="{% if useres.status == 'pending' %}status-pending{% elif useres.status == 'processing' %}status-processing{% elif useres.status == 'completed' %}status-completed{% elif useres.status == 'canceled' %}status-canceled{% endif %}">
-            {% for key, label in useres.STATUS_CHOICES %}
-                <option value="{{ key }}" {% if key == useres.status %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Изменить</button>
-    </form>
-</td>
-      </tr>
+    <tbody id="feedback-table-body">
+        {% for useres in user %}
+        <tr class="feedback-row" data-status="{{ useres.status }}">
+            <td style="border: 1px solid black;">{{ useres.name }}</td>
+            <td style="border: 1px solid black;">{{ useres.tel }}</td>
+            <td style="border: 1px solid black;">{{ useres.email }}</td>
+            <td style="border: 1px solid black;">
+                <form method="POST" action="{% url 'change_order_status' 'user' useres.id %}">
+                    {% csrf_token %}
+                    <select name="status" class="{% if useres.status == 'pending' %}status-pending{% elif useres.status == 'processing' %}status-processing{% elif useres.status == 'completed' %}status-completed{% elif useres.status == 'canceled' %}status-canceled{% endif %}">
+                        {% for key, label in useres.STATUS_CHOICES %}
+                            <option value="{{ key }}" {% if key == useres.status %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Изменить</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">Нет обратной связи для отображения.</td>
+            </tr>
+        {% endfor %}
     </tbody>
-    {% endfor %}
 </table>
+
 </div>
 {% endblock %}
